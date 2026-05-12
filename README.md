@@ -1,67 +1,74 @@
-# 🛡 Work Flint Security System
+# 🛡 Work Flint - Insider Threat Detection & HR Management System
 
-A full-stack **Insider Threat Detection & HR Management System** with:
+A full-stack **Enterprise Security + HR Management Platform** with real-time monitoring, insider threat detection, and HR automation.
 
-- Role-based access control (Admin / HR / IT)
-- Real-time security monitoring
+---
+
+# 📌 SYSTEM MODULES
+
+## 🔐 ADMIN SECURITY DASHBOARD
+- Real-time security event monitoring
 - Honeypot attack detection system
-- Risk scoring engine
-- HR payroll + letters + requests system
-- MySQL database integration
-- PDF report generation
-- Session-based authentication
-
----
-
-## 🚀 Features
-
-### 🔐 Security System
-- Honeypot triggers detection
-- Auto risk scoring
+- Risk scoring engine for users
 - Suspicious user tracking
-- Security event logs dashboard
-
-### 👨‍💼 HR Module
-- Employee salary management
-- HR request approval system
-- Letter generation (PDF export)
-- HR analytics dashboard
-
-### 🧠 Authentication
-- Session-based login system
-- Role-based access (admin/hr/it)
-- Auto block suspicious users
+- Security logs analysis dashboard
+- Threat classification (Low / Medium / High / Critical)
+- Live incident feed (Socket.IO enabled)
 
 ---
 
-## 🛠 Tech Stack
+## 🧑‍💼 HR MANAGEMENT SYSTEM
+- Employee payroll management (Salary module)
+- HR request approval workflow system
+- Automated offer / experience letter generation
+- PDF download of HR letters (PDFKit)
+- HR analytics dashboard (requests, approvals, pending)
+- Employee resources management
+
+---
+
+## 🛡 SECURITY ENGINE (CORE BACKEND)
+- Session-based authentication system
+- Role-based access control (Admin / HR / IT)
+- Auto-block suspicious users (risk threshold system)
+- Honeypot logging mechanism
+- Security alert API system
+- Insider threat detection logic
+
+---
+
+## 📊 REAL-TIME FEATURES
+- Live security alerts using Socket.IO
+- Automatic risk score updates per event
+- Top risk user leaderboard
+- Session expiration (auto logout system)
+- API security wrapper with session headers
+
+---
+
+# 🗄 DATABASE MODULES
+
+- users (authentication + risk score)
+- security_logs (attack tracking)
+- tickets (incident tracking)
+- hr_requests (HR workflow system)
+- salaries (payroll system)
+- letters (HR document generation)
+
+---
+
+# ⚙️ TECH STACK
 
 - Node.js (Express)
 - MySQL
 - HTML / CSS / JavaScript
-- PDFKit
-- Socket.IO (real-time alerts)
+- Socket.IO (real-time system)
+- PDFKit (document generation)
 
 ---
 
-## ⚙️ Setup Instructions
+# 🚀 HOW TO RUN
 
-bash
-
--npm install
--node server.js
-
----
-
-## 📊 Highlights
-
--Real-time security monitoring
--Insider threat detection
--HR automation system
--PDF generation system
-
----
-
-## 👩‍💻 Author
-
--Prabandala Hasini
+```bash
+npm install
+node server.js
