@@ -1,101 +1,172 @@
-# 🛡 WORK FLINT - INSIDER THREAT & SECURITY INTELLIGENCE PLATFORM
+# 🛡 Work Flint – Insider Threat & HR Security System
 
-A full-stack **Security Monitoring & Insider Threat Detection System** with real-time analytics, honeypot traps, risk scoring, and HR , IT automation module.
+# A cybersecurity + HR intelligence simulation system designed to mimic enterprise Security Operations Center (SOC) workflows with real-time threat detection and insider risk monitoring.
 
----
-
-# 🧠 CORE SYSTEM OVERVIEW
-
-Work Flint is not just a dashboard system — it is a **security intelligence platform** that detects insider threats, suspicious behavior, and system misuse in real time.
+Work Flint is a full-stack enterprise-style security monitoring and HR management system built using Node.js, Express, MySQL, and real-time event tracking. It simulates a real-world corporate environment with insider threat detection, HR workflows, and security intelligence systems.
 
 ---
 
-# 🔥 KEY CAPABILITIES
+# 🎯 Project Goal
 
-## 🛡️ Security Intelligence Engine
-- Honeypot trap system for detecting malicious access attempts
-- Security event logging system
-- Risk scoring engine for every user action
-- Automatic threat classification (Low / Medium / High / Critical)
-- Insider threat behavior detection logic
+This project simulates how real enterprises monitor insider threats using:
 
----
+- Behavioral risk scoring
+- Honeypot deception systems
+- Role-based access control
+- Real-time security dashboards
 
-## ⚡ Real-Time Security Monitoring (Admin Dashboard)
-- Live security event feed
-- Suspicious user tracking
-- Top risk users leaderboard
-- Attack attempt visualization
-- System monitoring interface
+It combines HR operations with cybersecurity monitoring to demonstrate full-stack enterprise system design.
 
 ---
 
-## 🤖 AI-LIKE INCIDENT ANALYSIS
-- Automatic security event categorization
-- Dynamic risk scoring per activity
-- Pattern-based threat detection logic
-- Intelligent alert generation system
+# 🚀 Features
 
----
-
-## 🔐 Authentication & Access Control
-- Session-based authentication system
+## 🔐 Security System
+- Insider threat detection engine
+- Honeypot trap system for attacker detection
+- Risk scoring system for users
+- Auto-block system for high-risk accounts
+- Session-based authentication
 - Role-based access control (Admin / HR / IT)
-- Auto-block system for high-risk users
-- Session expiration handling
 
 ---
 
-## 👩‍💼 HR MANAGEMENT MODULE (Secondary System)
-- Payroll management system
-- HR request approval workflow
-- Letter generation system (PDF export)
-- Salary management module
-- Employee resources module
+## 📊 Admin Security Dashboard
+- Real-time security event monitoring
+- Live threat feed (Socket.io enabled)
+- Critical attack detection
+- Top risky users ranking
+- Security log tracking from database
 
 ---
 
-## 📄 Reporting System
-- PDF incident report generator
-- HR letter generation system
-- Security logs tracking system
+## 👩‍💼 HR Management System
+- Employee payroll management (salary module)
+- HR request approval system
+- Employee records management
+- Attendance and announcements support
+- Resource management module
+- HR analytics dashboard
 
 ---
 
-## ⚡ Real-Time Features
-- Socket.IO live security alerts
-- Instant risk updates
-- Real-time dashboard synchronization
+## 📄 Document & PDF System
+- Automated HR letter generation (Offer / Warning / Experience letters)
+- PDF download system using PDFKit
+- Stored and retrieved from MySQL database
 
 ---
 
-# 🗄 DATABASE MODULES
-
-- users (authentication + risk score)
-- security_logs (attack + honeypot tracking)
-- tickets (incident tracking system)
-- hr_requests (HR workflow system)
-- salaries (payroll system)
-- letters (document generation)
+## ⚡ Real-Time Backend System
+- Express.js REST API backend
+- MySQL relational database integration
+- Socket.io real-time dashboard updates
+- Session timeout handling (1-hour expiry)
+- Security event logging system
 
 ---
 
-# 🛠 TECH STACK
-
-- Node.js (Express)
-- MySQL
-- HTML / CSS / JavaScript
-- Socket.IO
-- PDFKit
+## 🧠 Intelligent Security Logic
+- Keyword-based threat detection (root, disable, master, export, surveillance)
+- Automatic risk scoring engine
+- Honeypot trigger detection
+- Behavioral anomaly tracking
 
 ---
 
-# 🚀 HOW TO RUN
+# 🏗 Tech Stack
+
+- Frontend: HTML, CSS, JavaScript
+- Backend: Node.js, Express.js
+- Database: MySQL
+- Real-time: Socket.io
+- PDF Generation: PDFKit
+- Authentication: Session-based system
+
+---
+
+# 📁 Project Structure
+
+- /frontend → All UI dashboards (Admin, HR, Login)
+- /server.js → Main backend server
+- /db.js → Database connection
+- /routes → Authentication & security APIs
+
+---
+
+# 🔐 Security Features
+
+- Login authentication system
+- Role-based route protection
+- Session validation middleware
+- Honeypot detection system
+- Risk scoring per user
+- Security logs database tracking
+
+---
+
+# 📊 Database Tables
+
+- users
+- security_logs
+- hr_requests
+- salaries
+- tickets
+- letters
+
+---
+
+# 📸 Modules Overview
+
+## 🛡 Admin Security Dashboard
+- Live attack monitoring system
+- Risk scoring visualization
+- Security event logs
+
+## 👩‍💼 HR Dashboard
+- Payroll system
+- HR approvals
+- Letter generation
+- Employee management system
+
+## 🔍 Security Engine
+- Honeypot triggers
+- Suspicious activity detection
+- Risk score updates
+
+---
+
+# 📦 Installation
 
 ```bash
+git clone https://github.com/hasini999/work-flint-security-system.git
+cd work-flint-security-system
 npm install
 node server.js
 ```
+---
+
+# 🌐 Run Application
+- http://localhost:3000
+
+---
+
+# 🔥 Highlights
+- Enterprise-style security simulation
+- SOC-style admin dashboard
+- HR + Security hybrid system
+- Real-time threat detection
+- Industry-level backend architecture
+
+---
+
+# 🚀 Future Improvements
+- AI-based anomaly detection model
+- Email alert system for threats
+- Cloud deployment (Render / AWS)
+- Advanced analytics charts
+- Multi-factor authentication
+
 ---
 
 # 👩‍💻 AUTHOR
