@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hardware Inventory</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f4f6f8;
+    }
+
+    header {
+      background: #2f4f6f;
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+
+    .container {
+      padding: 20px;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .card {
+      background: white;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+
+    th {
+      background: #e2e8f0;
+    }
+
+    .status-active {
+      color: green;
+      font-weight: bold;
+    }
+
+    .status-maintenance {
+      color: orange;
+      font-weight: bold;
+    }
+
+    .btn {
+      padding: 8px 12px;
+      background: #2f4f6f;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .btn:hover {
+      background: #4CAF50;
+    }
+
+    .admin-link {
+      font-size: 13px;
+      color: #555;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .admin-link:hover {
+      color: red;
+    }
+
+    input {
+      padding: 8px;
+      width: 100%;
+      margin-top: 5px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  🖥️ Hardware Inventory Management
+</header>
+
+<div class="container">
+
+  <!-- SUMMARY -->
+  <div class="card">
+    <h3>Inventory Summary</h3>
+    <p>Total Devices: 128</p>
+    <p>Active: 112</p>
+    <p>Under Maintenance: 16</p>
+  </div>
+
+  <!-- SEARCH -->
+  <div class="card">
+    <h3>Search Asset</h3>
+    <input type="text" placeholder="Enter Asset ID, Serial No, or Department">
+    <button class="btn">Search</button>
+  </div>
+
+  <!-- TABLE -->
+  <div class="card">
+    <h3>Asset List</h3>
+
+    <table>
+      <tr>
+        <th>Asset ID</th>
+        <th>Type</th>
+        <th>Assigned To</th>
+        <th>Status</th>
+      </tr>
+
+      <tr>
+        <td>HW-1001</td>
+        <td>Laptop</td>
+        <td>Ravi Kumar</td>
+        <td class="status-active">Active</td>
+      </tr>
+
+      <tr>
+        <td>HW-1002</td>
+        <td>Desktop</td>
+        <td>Finance Dept</td>
+        <td class="status-maintenance">Maintenance</td>
+      </tr>
+
+      <tr>
+        <td>HW-1003</td>
+        <td>Printer</td>
+        <td>HR Dept</td>
+        <td class="status-active">Active</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- ACTIONS -->
+  <div class="card">
+    <h3>Asset Actions</h3>
+
+    <button class="btn">Allocate Device</button>
+    <button class="btn">Mark Maintenance</button>
+    <button class="btn">Retire Asset</button>
+  </div>
+
+  <!-- 🔐 HONEYPOTS (DISGUISED AS ADVANCED OPS TOOLS) -->
+  <div class="card">
+    <h3>Advanced Asset Controls</h3>
+
+    <p class="admin-link" onclick="triggerHoneypot('asset_mass_export')">
+      Export full hardware registry (restricted)
+    </p>
+
+    <p class="admin-link" onclick="triggerHoneypot('device_serial_database_access')">
+      Access device serial number database
+    </p>
+
+    <p class="admin-link" onclick="triggerHoneypot('hidden_asset_audit_logs')">
+      View hidden asset audit logs
+    </p>
+
+    <p class="admin-link" onclick="triggerHoneypot('hardware_admin_override')">
+      Override hardware allocation system
+    </p>
+
+  </div>
+
+</div>
+
+<script>
+function triggerHoneypot(type) {
+  console.warn("🚨 Honeypot triggered:", type);
+
+  fetch("/api/security-alert", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      event: type,
+      page: "hardware-inventory.html",
+      timestamp: new Date().toISOString()
+    })
+  }).catch(() => {});
+
+  alert("Access denied. Security event logged.");
+}
+</script>
+
+</body>
+</html>

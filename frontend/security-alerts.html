@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Security Alerts</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f9;
+      display: flex;
+    }
+
+    .sidebar {
+      width: 250px;
+      height: 100vh;
+      background-color: #3b6dab;
+      color: white;
+      position: fixed;
+      overflow-y: auto;
+    }
+
+    .sidebar h2 {
+      text-align: center;
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .sidebar a {
+      display: block;
+      color: white;
+      text-decoration: none;
+      padding: 15px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .sidebar a:hover {
+      background-color: #4CAF50;
+    }
+
+    .main-content {
+      margin-left: 250px;
+      padding: 20px;
+      width: 100%;
+    }
+
+    h1 {
+      color: #2c3e50;
+    }
+
+    .alert-box {
+      background: white;
+      padding: 15px;
+      margin-top: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 2px 8px rgba(0,0,0,0.1);
+      border-left: 6px solid red;
+    }
+
+    .medium {
+      border-left-color: orange;
+    }
+
+    .low {
+      border-left-color: green;
+    }
+
+    .alert-title {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .time {
+      color: gray;
+      font-size: 14px;
+    }
+
+    .status {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    .critical {
+      color: red;
+    }
+
+    .warning {
+      color: orange;
+    }
+
+    .safe {
+      color: green;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 30px;
+      background: white;
+    }
+
+    table th, table td {
+      padding: 12px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+
+    table th {
+      background-color: #3b6dab;
+      color: white;
+    }
+
+  </style>
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h2>Work Flint</h2>
+
+    <a href="it-dashboard.html">Dashboard</a>
+    <a href="system-monitoring.html">System Monitoring</a>
+    <a href="network-status.html">Network Status</a>
+    <a href="security-alerts.html">Security Alerts</a>
+    <a href="security-logs.html">Security Logs</a>
+    <a href="access-control.html">Access Control</a>
+    <a href="data-backup.html">Data Backup</a>
+    <a href="profile.html">Profile</a>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+
+    <h1>🚨 Security Alerts Dashboard</h1>
+    <p>Monitor suspicious activities, honeypot triggers, and intrusion attempts.</p>
+
+    <!-- Alert Cards -->
+
+    <div class="alert-box">
+      <div class="alert-title">Unauthorized Login Attempt</div>
+      <div class="time">Detected: 02:14 AM</div>
+      <div class="status critical">Severity: Critical</div>
+    </div>
+
+    <div class="alert-box medium">
+      <div class="alert-title">Honeypot Page Accessed</div>
+      <div class="time">Detected: 03:02 AM</div>
+      <div class="status warning">Severity: Medium</div>
+    </div>
+
+    <div class="alert-box low">
+      <div class="alert-title">Firewall Successfully Blocked Suspicious IP</div>
+      <div class="time">Detected: 04:25 AM</div>
+      <div class="status safe">Severity: Low</div>
+    </div>
+
+    <!-- Logs Table -->
+
+    <h2>Recent Security Events</h2>
+
+    <table>
+  <thead>
+    <tr>
+      <th>Time</th>
+      <th>Event</th>
+      <th>User</th>
+      <th>Status</th>
+      <th>Risk</th>
+    </tr>
+  </thead>
+
+  <tbody id="logTable">
+    <tr>
+      <td>02:14 AM</td>
+      <td>Failed Admin Login</td>
+      <td>Blocked</td>
+      <td>Admin</td>
+      <td>HIGH</td>
+    </tr>
+  </tbody>
+</table>
+
+    <!-- Hidden Honeypot -->
+
+    <div style="display:none;">
+      <input type="text" value="admin_root_password">
+    </div>
+
+  </div>
+
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+
+<script>
+
+const socket = io("http://localhost:3000");
+
+socket.on("security-alert", (data) => {
+
+    console.log("LIVE ALERT:", data);
+
+    const tbody = document.getElementById("logTable");
+
+    const row = document.createElement("tr");
+
+    // fallback safe values
+    const event = data.event || data.event_type || "Unknown Event";
+    const user = data.employee || data.user || "system";
+    const risk = data.risk || "MEDIUM";
+
+    row.innerHTML = `
+        <td>${new Date().toLocaleTimeString()}</td>
+        <td>${event}</td>
+        <td>${user}</td>
+        <td style="color:red;">LIVE</td>
+        <td>${risk}</td>
+    `;
+
+    tbody.prepend(row);
+
+    // 🔴 blink effect
+    document.body.style.backgroundColor = "#3b0b0b";
+
+    setTimeout(() => {
+        document.body.style.backgroundColor = "#f4f6f9";
+    }, 400);
+
+});
+
+// connection debug
+socket.on("connect", () => {
+    console.log("🟢 Connected to security server");
+});
+
+socket.on("connect_error", () => {
+    console.log("⚠ Socket connection failed");
+});
+
+</script>
+</body>
+
+
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>System Monitoring Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: #e2e8f0;
+    }
+
+    header {
+      background: #1e293b;
+      padding: 15px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+      color: #38bdf8;
+    }
+
+    .container {
+      padding: 20px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .card {
+      background: #1e293b;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+
+    .card h3 {
+      margin-top: 0;
+      color: #38bdf8;
+    }
+
+    .log {
+      background: #0b1220;
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 14px;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    .danger {
+      color: #f87171;
+    }
+
+    .warn {
+      color: #fbbf24;
+    }
+
+    .safe {
+      color: #4ade80;
+    }
+
+    button {
+      padding: 8px 12px;
+      margin-top: 10px;
+      background: #38bdf8;
+      border: none;
+      color: black;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    button:hover {
+      background: #0ea5e9;
+    }
+
+  </style>
+</head>
+
+<body>
+
+<header>
+  🛡️ System Monitoring Dashboard
+</header>
+
+<div class="container">
+
+  <!-- LOGIN LOGS -->
+  <div class="card">
+    <h3>Login Activity</h3>
+    <div class="log" id="loginLogs">
+      <p class="safe">[OK] user@company.com logged in</p>
+      <p class="warn">[WARN] Multiple failed login attempts detected</p>
+      <p class="danger">[ALERT] Suspicious login from unknown IP 103.21.xx.xx</p>
+    </div>
+    <button onclick="refreshLogs()">Refresh</button>
+  </div>
+
+  <!-- HONEYPOT TRIGGERS -->
+  <div class="card">
+    <h3>Honeypot Trigger Events</h3>
+    <div class="log" id="honeypotLogs">
+      <p class="danger">[TRAP] salary_master_access triggered</p>
+      <p class="danger">[TRAP] internal_audit_export triggered</p>
+      <p class="warn">[TRAP] confidential_strategy_document accessed</p>
+    </div>
+    <button onclick="clearLogs()">Clear Logs</button>
+  </div>
+
+  <!-- SYSTEM STATUS -->
+  <div class="card">
+    <h3>System Health</h3>
+    <p class="safe">Backend API: ONLINE</p>
+    <p class="safe">Database: CONNECTED</p>
+    <p class="warn">Firewall: MONITORING MODE</p>
+    <p class="danger">Intrusion Detection: ACTIVE</p>
+  </div>
+
+  <!-- SECURITY SCORE -->
+  <div class="card">
+    <h3>Security Score</h3>
+    <p style="font-size: 30px; color: #4ade80;">87 / 100</p>
+    <p>Moderate risk detected. Honeypot activity under analysis.</p>
+    <button onclick="simulateAttack()">Simulate Attack</button>
+  </div>
+
+</div>
+
+<script>
+function refreshLogs() {
+  alert("Logs refreshed (mock)");
+}
+
+function clearLogs() {
+  document.getElementById("honeypotLogs").innerHTML = "";
+  alert("Logs cleared");
+}
+
+function simulateAttack() {
+  const log = document.getElementById("honeypotLogs");
+  const entry = document.createElement("p");
+  entry.className = "danger";
+  entry.innerText = "[TRAP] simulated_attack_payload detected";
+  log.appendChild(entry);
+
+  alert("Attack simulation triggered!");
+}
+</script>
+
+</body>
+</html>

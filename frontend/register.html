@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>Employee Registration | Work Flint</title>
+
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+
+      height: 100vh;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      background:
+        linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+        url('assets/corporate-office.jpg');
+
+      background-size: cover;
+      background-position: center;
+    }
+
+    .auth-container {
+
+      width: 420px;
+
+      background: white;
+
+      padding: 30px;
+
+      border-radius: 10px;
+
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #1e293b;
+    }
+
+    label {
+      font-size: 13px;
+      font-weight: bold;
+      color: #334155;
+      margin-top: 10px;
+      display: block;
+    }
+
+    input, select {
+
+      width: 100%;
+
+      padding: 10px;
+
+      margin-top: 5px;
+      margin-bottom: 10px;
+
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+
+      outline: none;
+    }
+
+    input:focus, select:focus {
+      border-color: #2563eb;
+    }
+
+    button {
+
+      width: 100%;
+
+      padding: 12px;
+
+      margin-top: 15px;
+
+      border: none;
+
+      border-radius: 6px;
+
+      background: #2563eb;
+
+      color: white;
+
+      font-size: 15px;
+
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #1d4ed8;
+    }
+
+    p {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 14px;
+    }
+
+    a {
+      color: #2563eb;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    #reg-message {
+      text-align: center;
+      font-size: 14px;
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <div class="auth-container">
+
+    <h2>Employee Registration</h2>
+
+    <form id="register-form">
+
+      <label>Full Name</label>
+      <input type="text" id="reg-name" required />
+
+      <label>Email</label>
+      <input type="email" id="reg-email" required />
+
+      <label>Password</label>
+      <input type="password" id="reg-password" required />
+
+      <label>Confirm Password</label>
+      <input type="password" id="reg-confirm-password" required />
+
+      <label>Role</label>
+      <select id="reg-role" required>
+
+        <option value="">Select Role</option>
+        <option value="Sales">Sales</option>
+        <option value="HR">HR</option>
+        <option value="IT">IT</option>
+        <option value="Finance">Finance</option>
+        <option value="Admin">Admin</option>
+
+      </select>
+
+      <label>Security Question</label>
+      <select id="reg-security-question" required>
+
+        <option value="">Select a question</option>
+
+        <option value="pet">What is your pet's name?</option>
+        <option value="school">What was your first school?</option>
+        <option value="color">What is your favorite color?</option>
+        <option value="food">What is your favorite food?</option>
+
+      </select>
+
+      <label>Security Answer</label>
+      <input type="text" id="reg-security-answer" required />
+
+      <button type="submit">Create Account</button>
+
+    </form>
+
+    <p>
+      Already registered?
+      <a href="login.html">Login here</a>
+    </p>
+
+    <div id="reg-message" style="margin-top:10px;"></div>
+
+  </div>
+
+  <script src="register.js"></script>
+
+</body>
+
+</html>

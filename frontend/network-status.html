@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Status</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .container {
+            padding: 20px;
+        }
+
+        h1 {
+            color: #2c3e50;
+        }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .card {
+            background: #f4f6f8;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 5px solid #3498db;
+        }
+
+        .online {
+            border-left-color: #2ecc71;
+        }
+
+        .warning {
+            border-left-color: #f39c12;
+        }
+
+        .offline {
+            border-left-color: #e74c3c;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🌐 Network Status Dashboard</h1>
+    <p>Real-time overview of network health and connectivity.</p>
+
+    <div class="status-grid">
+
+        <div class="card online">
+            <p class="label">Main Server</p>
+            <p>Status: 🟢 Online</p>
+            <p>Latency: 12 ms</p>
+        </div>
+
+        <div class="card online">
+            <p class="label">Database Server</p>
+            <p>Status: 🟢 Online</p>
+            <p>Latency: 18 ms</p>
+        </div>
+
+        <div class="card warning">
+            <p class="label">API Gateway</p>
+            <p>Status: 🟡 High Load</p>
+            <p>Latency: 120 ms</p>
+        </div>
+
+        <div class="card offline">
+            <p class="label">Backup Server</p>
+            <p>Status: 🔴 Offline</p>
+            <p>Last Seen: 2 hours ago</p>
+        </div>
+
+        <div class="card online">
+            <p class="label">Firewall</p>
+            <p>Status: 🟢 Active</p>
+            <p>Threats Blocked: 24</p>
+        </div>
+
+        <div class="card online">
+            <p class="label">DNS Service</p>
+            <p>Status: 🟢 Stable</p>
+            <p>Response Time: 9 ms</p>
+        </div>
+
+    </div>
+
+    <h2 style="margin-top:30px;">Network Summary</h2>
+    <ul>
+        <li>Total Nodes: 6</li>
+        <li>Online: 4</li>
+        <li>Warning: 1</li>
+        <li>Offline: 1</li>
+    </ul>
+
+</div>
+
+</body>
+</html>

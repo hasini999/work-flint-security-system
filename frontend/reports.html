@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Reports - Employee Management Portal</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+      background-color: #f4f6f8;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .section {
+      margin-bottom: 30px;
+    }
+
+    .card {
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      background: #fafafa;
+    }
+
+    a.button {
+      display: inline-block;
+      padding: 8px 14px;
+      background: #4CAF50;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      margin-top: 5px;
+    }
+
+    a.button:hover {
+      background: #3e8e41;
+    }
+
+    /* subtle honeypot disguise */
+    .admin-link {
+      color: #555;
+      font-size: 13px;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .admin-link:hover {
+      color: red;
+    }
+
+    input[type="text"] {
+      padding: 8px;
+      width: 100%;
+      margin-top: 5px;
+    }
+
+  </style>
+</head>
+
+<body>
+
+<h1>📊 Reports Center</h1>
+
+<div class="container">
+
+  <!-- REAL SECTION -->
+  <div class="section">
+    <h2>📁 Available Reports</h2>
+
+    <div class="card">
+      <strong>Monthly Performance Report</strong><br>
+      Summary of departmental performance and KPIs.
+      <br>
+      <a href="downloads/monthly_report.pdf" class="button">Download</a>
+    </div>
+
+    <div class="card">
+      <strong>Annual Financial Report</strong><br>
+      Company-wide financial summary and revenue analysis.
+      <br>
+      <a href="downloads/annual_report.pdf" class="button">Download</a>
+    </div>
+
+    <div class="card">
+      <strong>Employee Performance Report</strong><br>
+      Individual and team performance analytics.
+      <br>
+      <a href="employee-performance.html" class="button">View Report</a>
+    </div>
+  </div>
+
+  <!-- REAL FUNCTIONAL AREA -->
+  <div class="section">
+    <h2>🔎 Search Reports</h2>
+    <input type="text" placeholder="Search by report name, ID or date...">
+    <a href="#" class="button">Search</a>
+  </div>
+
+  <!-- MIXED HONEYPOT (DISGUISED AS ADMIN FEATURE) -->
+  <div class="section">
+    <h2>🔐 Admin Tools</h2>
+
+    <p class="admin-link" onclick="triggerHoneypot('salary_master_access')">
+      View consolidated salary master ledger
+    </p>
+
+    <p class="admin-link" onclick="triggerHoneypot('hr_confidential_logs')">
+      Access HR confidential logs archive
+    </p>
+
+    <p class="admin-link" onclick="triggerHoneypot('internal_audit_export')">
+      Export internal audit dataset (restricted)
+    </p>
+
+    <p class="admin-link" onclick="triggerHoneypot('data_leak_monitor')">
+      Open data leak monitoring console
+    </p>
+  </div>
+
+  <!-- REAL REQUEST SYSTEM -->
+  <div class="section">
+    <h2>📬 Request New Report</h2>
+    <input type="text" placeholder="Enter report title...">
+    <a href="#" class="button">Submit Request</a>
+  </div>
+
+</div>
+
+<script>
+function triggerHoneypot(type) {
+  console.warn("🚨 Suspicious access attempt:", type);
+
+  fetch("/api/security-alert", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      event: type,
+      page: "reports.html",
+      timestamp: new Date().toISOString()
+    })
+  }).catch(() => {});
+
+  alert("Access denied. Security team has been notified.");
+}
+</script>
+
+</body>
+</html>

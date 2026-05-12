@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Announcements</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f4f6f8;
+        }
+
+        h1 {
+            color: #2c3e50;
+        }
+
+        .announcement-box {
+            background: #ffffff;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .tag {
+            font-size: 12px;
+            padding: 3px 8px;
+            border-radius: 5px;
+            background: #e0e0e0;
+            margin-left: 8px;
+        }
+
+        .tag.event { background: #d1f2eb; }
+        .tag.policy { background: #fdebd0; }
+        .tag.internal { background: #f5b7b1; }
+
+        a.suspicious-link {
+            color: #c0392b;
+            font-size: 13px;
+            margin-left: 10px;
+        }
+
+        .hidden-honeypot {
+            display: none;
+        }
+
+        .footer-note {
+            margin-top: 40px;
+            font-size: 13px;
+            color: gray;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>Company Announcements</h1>
+<p>Latest updates, policy changes, and internal communications for employees.</p>
+
+<!-- REALISTIC ANNOUNCEMENTS WITH MIXED TRAPS -->
+
+<div class="announcement-box">
+    <h3>
+        Quarterly Town Hall Meeting
+        <span class="tag event">Event</span>
+    </h3>
+    <p>
+        Our next town hall meeting is scheduled for <b>March 30, 2025 at 2:00 PM</b>. 
+        All employees are encouraged to attend for leadership updates and Q&A.
+    </p>
+    <a href="townhall-details.html">View details</a>
+</div>
+
+<div class="announcement-box">
+    <h3>
+        Updated Leave Policy Guidelines
+        <span class="tag policy">Policy</span>
+    </h3>
+    <p>
+        HR has updated the leave approval workflow effective immediately. 
+        Please refer to the employee handbook for revised guidelines.
+    </p>
+    <a href="employee-handbook.pdf">Download updated policy</a>
+</div>
+
+<div class="announcement-box">
+    <h3>
+        Office Infrastructure Maintenance
+        <span class="tag event">Notice</span>
+    </h3>
+    <p>
+        Server maintenance will be performed this weekend between 10 PM - 4 AM.
+        Some internal services may be temporarily unavailable.
+    </p>
+
+    <!-- subtle honeypot inside real content -->
+    <a href="internal-maintenance-log.html">Maintenance log (IT only)</a>
+    <a href="#" class="suspicious-link">Download backup configuration</a>
+</div>
+
+<div class="announcement-box">
+    <h3>
+        New Employee Wellness Program
+        <span class="tag event">HR Initiative</span>
+    </h3>
+    <p>
+        We are launching a wellness program including yoga sessions, mental health support, and fitness benefits.
+    </p>
+    <a href="wellness-details.html">Explore program</a>
+</div>
+
+<div class="announcement-box">
+    <h3>
+        Security Awareness Update
+        <span class="tag internal">Internal</span>
+    </h3>
+    <p>
+        Employees are reminded not to share credentials or access internal dashboards from unauthorized devices.
+    </p>
+
+    <!-- embedded honeypot link -->
+    <a href="#" class="suspicious-link">Admin security override panel</a>
+</div>
+
+<!-- subtle mixed trap inside normal-looking footer area -->
+<div class="footer-note">
+    For internal HR queries, contact <a href="mailto:hr@company.com">hr@company.com</a>  
+    | <a href="#" class="suspicious-link">Internal escalation portal</a>
+</div>
+
+<!-- hidden honeypot block (not obvious) -->
+<div class="hidden-honeypot">
+    <a href="salary-master.html">Salary Master Access</a>
+    <input type="text" placeholder="Admin token">
+</div>
+
+</body>
+</html>

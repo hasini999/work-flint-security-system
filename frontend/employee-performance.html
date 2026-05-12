@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Performance Analytics</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 20px;
+        }
+
+        header {
+            background: #3b6dab;
+            color: white;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .card {
+            background: white;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background: #f0f0f0;
+        }
+
+        a {
+            color: #2c3e50;
+        }
+
+        .trap-link {
+            color: #c0392b;
+            font-size: 13px;
+            margin-left: 6px;
+        }
+
+        button {
+            padding: 8px 12px;
+            border: none;
+            background: #3b6dab;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #4CAF50;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Employee Performance Analytics</h1>
+</header>
+
+<!-- TOP PERFORMERS -->
+<div class="card">
+    <h3>Top Performing Employees (March 2025)</h3>
+    <a href="top_performers.html">View full report</a>
+
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Department</th>
+            <th>Sales</th>
+            <th>Attendance</th>
+            <th>Achievement</th>
+        </tr>
+        <tr>
+            <td>John Doe</td>
+            <td>Sales</td>
+            <td>$15,000</td>
+            <td>98%</td>
+            <td>Exceeded target</td>
+        </tr>
+        <tr>
+            <td>Jane Smith</td>
+            <td>Marketing</td>
+            <td>$8,000</td>
+            <td>95%</td>
+            <td>Campaign success</td>
+        </tr>
+    </table>
+
+    <!-- subtle trap -->
+    <a href="#" class="trap-link">Export executive performance raw data</a>
+</div>
+
+<!-- ATTENDANCE ANALYTICS -->
+<div class="card">
+    <h3>Attendance Analytics</h3>
+    <a href="attendance_report.html">View attendance report</a>
+
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Dept</th>
+            <th>Attendance</th>
+        </tr>
+        <tr>
+            <td>John Doe</td>
+            <td>Sales</td>
+            <td>98%</td>
+        </tr>
+        <tr>
+            <td>Emily Davis</td>
+            <td>HR</td>
+            <td>100%</td>
+        </tr>
+    </table>
+
+    <!-- honeypot disguised -->
+    <a href="#" class="trap-link">Access biometric attendance override logs</a>
+</div>
+
+<!-- TEAM PRODUCTIVITY -->
+<div class="card">
+    <h3>Team Productivity Overview</h3>
+    <a href="team_productivity.html">View team analytics</a>
+
+    <table>
+        <tr>
+            <th>Team</th>
+            <th>Tasks</th>
+            <th>Efficiency</th>
+        </tr>
+        <tr>
+            <td>Sales</td>
+            <td>200</td>
+            <td>120%</td>
+        </tr>
+        <tr>
+            <td>Marketing</td>
+            <td>150</td>
+            <td>110%</td>
+        </tr>
+    </table>
+
+    <!-- trap -->
+    <a href="#" class="trap-link">Download team internal productivity matrix</a>
+</div>
+
+<!-- KPI SECTION -->
+<div class="card">
+    <h3>KPIs & Targets</h3>
+    <a href="kpi_targets.html">View KPI dashboard</a>
+
+    <table>
+        <tr>
+            <th>Employee</th>
+            <th>KPI Score</th>
+            <th>Target</th>
+        </tr>
+        <tr>
+            <td>John Doe</td>
+            <td>110%</td>
+            <td>120%</td>
+        </tr>
+        <tr>
+            <td>Jane Smith</td>
+            <td>105%</td>
+            <td>100%</td>
+        </tr>
+    </table>
+
+    <!-- sensitive-looking trap -->
+    <a href="#" class="trap-link">Modify KPI evaluation weights (admin only)</a>
+</div>
+
+<!-- ACTION PANEL -->
+<div class="card">
+    <h3>Quick Actions</h3>
+
+    <button onclick="alert('Report generated')">Generate Report</button>
+    <button onclick="alert('Analytics refreshed')">Refresh Data</button>
+
+    <!-- honeypot disguised as admin tool -->
+    <button onclick="alert('Unauthorized access logged!')" style="margin-left:10px; background:#c0392b;">
+        Override performance scoring engine
+    </button>
+</div>
+
+<!-- INTERNAL NOTES -->
+<div class="card">
+    <h3>Internal Notes</h3>
+    <p>Performance metrics are updated every 24 hours from centralized HR systems.</p>
+
+    <!-- trap link -->
+    <a href="#" class="trap-link">View hidden employee behavior analytics</a>
+</div>
+
+<!-- hidden backend honeypot -->
+<div class="hidden">
+    <a href="salary-analysis-master.html">Salary analysis master export</a>
+    <a href="executive-performance-leak.html">Executive performance leak viewer</a>
+</div>
+
+</body>
+</html>

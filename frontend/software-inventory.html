@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Software Inventory</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f4f6f8;
+    }
+
+    header {
+      background: #1f3b57;
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+
+    .container {
+      padding: 20px;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .card {
+      background: white;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background: #e2e8f0;
+      text-align: left;
+    }
+
+    .status-active {
+      color: green;
+      font-weight: bold;
+    }
+
+    .status-expired {
+      color: red;
+      font-weight: bold;
+    }
+
+    .status-trial {
+      color: orange;
+      font-weight: bold;
+    }
+
+    .btn {
+      padding: 8px 12px;
+      background: #1f3b57;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .btn:hover {
+      background: #4CAF50;
+    }
+
+    .admin-link {
+      font-size: 13px;
+      color: #555;
+      cursor: pointer;
+      text-decoration: underline;
+      display: inline-block;
+      margin-top: 5px;
+    }
+
+    .admin-link:hover {
+      color: red;
+    }
+
+    input {
+      padding: 8px;
+      width: 100%;
+      margin-top: 5px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  💻 Software Inventory Management
+</header>
+
+<div class="container">
+
+  <!-- SUMMARY -->
+  <div class="card">
+    <h3>Software Overview</h3>
+    <p>Total Licensed Software: 64</p>
+    <p>Active Licenses: 52</p>
+    <p>Expired Licenses: 6</p>
+    <p>Trial Versions: 6</p>
+  </div>
+
+  <!-- SEARCH -->
+  <div class="card">
+    <h3>Search Software</h3>
+    <input type="text" placeholder="Enter software name, license key, or vendor">
+    <button class="btn">Search</button>
+  </div>
+
+  <!-- SOFTWARE TABLE -->
+  <div class="card">
+    <h3>Installed Software List</h3>
+
+    <table>
+      <tr>
+        <th>Software</th>
+        <th>Version</th>
+        <th>License Status</th>
+        <th>Department</th>
+      </tr>
+
+      <tr>
+        <td>Microsoft Office</td>
+        <td>2021</td>
+        <td class="status-active">Active</td>
+        <td>All Departments</td>
+      </tr>
+
+      <tr>
+        <td>Adobe Photoshop</td>
+        <td>2023</td>
+        <td class="status-trial">Trial</td>
+        <td>Design</td>
+      </tr>
+
+      <tr>
+        <td>Oracle DB Tools</td>
+        <td>19c</td>
+        <td class="status-active">Active</td>
+        <td>IT</td>
+      </tr>
+
+      <tr>
+        <td>AutoCAD</td>
+        <td>2022</td>
+        <td class="status-expired">Expired</td>
+        <td>Engineering</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- ACTIONS -->
+  <div class="card">
+    <h3>Software Actions</h3>
+
+    <button class="btn">Assign License</button>
+    <button class="btn">Renew License</button>
+    <button class="btn">Revoke Access</button>
+  </div>
+
+  <!-- 🔐 HONEYPOTS (DISGUISED AS LICENSE ADMIN TOOLS) -->
+  <div class="card">
+    <h3>License Administration Tools</h3>
+
+    <p class="admin-link" onclick="triggerHoneypot('software_license_bulk_export')">
+      Export all enterprise license keys
+    </p>
+
+    <p class="admin-link" onclick="triggerHoneypot('hidden_software_audit_logs')">
+      Access hidden software audit logs
+    </p>
+
+    <p class="admin-link" onclick="triggerHoneypot('vendor_master_database')">
+      Open vendor master license database
+    </p>
+
+    <p class="admin-link" onclick="triggerHoneypot('license_override_console')">
+      Override software license restrictions
+    </p>
+
+  </div>
+
+</div>
+
+<script>
+function triggerHoneypot(type) {
+  console.warn("🚨 Honeypot triggered:", type);
+
+  fetch("/api/security-alert", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      event: type,
+      page: "software-inventory.html",
+      timestamp: new Date().toISOString()
+    })
+  }).catch(() => {});
+
+  alert("Access denied. Security team has been notified.");
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,646 @@
+
+
+/* Header - Centered Content with Top Navigation */
+/* Header - Layout Fix */
+header {
+    position: relative;
+    background-color: #004080;
+    color: white;
+    height: 220px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Navigation - Move to Left */
+.top-left-nav {
+    position: absolute;
+    top: 15px;
+    left: 30px;
+    background: #004080; /* Dark Blue Background */
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+
+.top-left-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    padding: 0;
+    margin: 0;
+}
+
+.top-left-nav ul li a:hover {
+    background: #ffcc00; /* Yellow on hover */
+    color: #004080 !important; /* Dark blue text */
+    border-radius: 5px;
+    padding: 10px 15px;
+}
+
+/*.top-left-nav ul li {
+    display: inline;
+}*/
+
+.top-left-nav ul li a {
+    color: #ffcc00 !important;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 10px 15px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+/* Centered Company Name & Tagline */
+.header-text {
+    margin-top: 40px;
+}
+
+.header-text h1 {
+    font-size: 36px;
+    margin: 0;
+}
+
+.header-text p {
+    font-size: 18px;
+    margin-top: 5px;
+}
+
+/* Login/Register - Move to Right */
+.auth-links {
+    position: absolute;
+    top: 15px;
+    right: 30px;
+}
+
+.auth-links .btn {
+    background: #ffcc00;
+    color: #004080;
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    margin-left: 10px;
+}
+
+.auth-links .btn:hover {
+    background: #ff9900;
+}
+
+/* Corporate Image Section */
+.corporate-image {
+    position: relative;
+    width: 100%;
+}
+
+.corporate-image img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+}
+
+/* "Get Started" Button Overlay on Image */
+.overlay-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.overlay-text .btn {
+    background: #ffcc00;
+    padding: 12px 24px;
+    color: #004080;
+    text-decoration: none;
+    font-size: 22px;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+.overlay-text .btn:hover {
+    background: #ff9900;
+}
+
+/* Center Section Headings */
+.section-title {
+    text-align: center;
+    font-size: 32px;
+    color: #004080;
+    margin-bottom: 30px;
+    font-weight: bold;
+    text-transform: uppercase;
+    position: relative;
+}
+
+/* Add a line below the heading */
+.section-title::after {
+    content: "";
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: #ffcc00;
+    margin: 10px auto 0;
+}
+
+/* Experts Section */
+.experts {
+    background: linear-gradient(135deg, #eef 40%, #cce5ff 100%);
+    padding: 60px 0;
+    text-align: center;
+    border-radius: 10px;
+    width: 90%;
+    margin: 40px auto;
+}
+
+/* Experts Section - Display in Row */
+.expert-list {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+/* Expert Cards */
+.expert {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 300px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.expert img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.expert h3 {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.expert p {
+    font-size: 14px;
+    color: #555;
+}
+
+/* Reviews Section */
+.reviews {
+    background: linear-gradient(135deg, #f8f9fa 40%, #e3e3e3 100%);
+    padding: 60px 0;
+    text-align: center;
+    border-radius: 10px;
+    width: 90%;
+    margin: 40px auto;
+}
+
+/* Reviews Section - Display in Row */
+.review-list {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+/* Review Cards */
+.review {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 280px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.review img {
+    width: 80px;  /* Increase width */
+    height: 80px; /* Increase height */
+    border-radius: 50%; /* Keep circular shape */
+    margin-bottom: 10px;
+    border: 3px solid #004080; /* Add border for better visibility */
+}
+
+.review p {
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+.review h4 {
+    font-size: 14px;
+    color: #444;
+}
+
+/* Hover Effects */
+.expert:hover, .review:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Scroll Animation */
+.animate {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Contact Section */
+.contact {
+    text-align: center;
+    background: #004080;
+    color: white;
+    padding: 50px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    margin: 40px auto;
+    border-radius: 10px;
+    width: 90%;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    background: #003366;
+    color: white;
+    padding: 20px 0;
+    font-size: 14px;
+}
+.footer-content h2 {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.footer-content p {
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px; /* Space between Social Media & Links */
+    flex-wrap: wrap;
+}
+
+/* Social Media Icons */
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.social-icons img {
+    width: 30px;
+    height: 30px;
+    transition: 0.3s;
+}
+
+.social-icons img:hover {
+    transform: scale(1.1);
+}
+
+/* Footer Extra Links */
+.footer-links {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    margin-bottom: 5px;
+    transition: 0.3s;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+    color: #ffcc00; /* Highlight on hover */
+}
+
+
+/* Footer Bottom */
+.footer-bottom {
+    font-size: 14px;
+    margin-top: 10px;
+}
+/* Login & Register Containers */
+.login-container, .register-container {
+    width: 350px;
+    margin: 80px auto;
+    padding: 20px;
+    background: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    border-radius: 10px;
+}
+
+h2 {
+    margin-bottom: 20px;
+    color: #004080;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    text-align: left;
+    font-weight: bold;
+    margin: 10px 0 5px;
+}
+
+input {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+button {
+    background: #004080;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #003366;
+}
+
+p {
+    margin-top: 10px;
+}
+
+p a {
+    color: #004080;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+p a:hover {
+    text-decoration: underline;
+}
+/* Style for Select Dropdown */
+select {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    background: white;
+}
+.g-recaptcha {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    height:100%;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Sidebar - Fixed on Left */
+.sidebar {
+    position: fixed;
+    top: 220px; /* Adjusted to start below the blue section */
+    left: 0;
+    width: 250px; /* Sidebar width */
+    height: calc(100vh - 220px); /* Full height minus header */
+    background: #004080;
+    padding: 20px;
+    z-index: 1500;
+    overflow-y: auto;
+}
+
+/* Dashboard Header - Fixed on Top */
+.dashboard-header {
+    /* position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%; */
+    background: #004080;
+    color: white;
+    padding: 20px;
+    font-size: 24px;
+    text-align: center;
+    z-index: 1000;
+    position:relative;
+}
+
+/* Push Content Below Blue Header */
+.dashboard-container {
+    margin-left: 270px; /* Push content to the right of sidebar */
+    width: calc(100% - 270px); /* Adjust width dynamically */
+    padding-top: 20px; /* Ensure content starts BELOW the blue header */
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Employee Profile, Tasks, Attendance Sections */
+.profile, .tasks, .attendance {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Centered Company Name */
+.company-name {
+    font-size: 48px;
+    font-weight: bold;
+}
+
+.welcome-text {
+    font-size: 22px;
+    margin-top: 10px;
+}
+
+/* Responsive Design - Adjust Layout for Small Screens */
+@media (max-width: 768px) {
+    .dashboard-container {
+        grid-template-columns: 1fr; /* Single column layout on small screens */
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .dashboard-header {
+        left: 0;
+        width: 100%;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+}
+
+
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar ul li {
+    margin: 15px 0;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
+    padding: 12px;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidebar ul li a:hover {
+    background: #ffcc00;
+    color: #004080;
+    border-radius: 5px;
+}
+
+
+
+h2 {
+    color: #004080;
+}
+
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+ul li {
+    background: #eef;
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+
+
+
+/* About Section - Rectangular Box */
+.about {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+}
+
+.about-box {
+    background: white;
+    padding: 30px;
+    max-width: 800px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.about-box h2 {
+    color: #004080; /* Dark blue */
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+
+.about-box p {
+    font-size: 18px;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* 🔹 Common Form Styles for Login, Register, and Forgot Password */
+.auth-container {
+    width: 350px;
+    margin: 80px auto;
+    padding: 20px;
+    background: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    border-radius: 10px;
+}
+
+.auth-container h2 {
+    margin-bottom: 20px;
+    color: #004080;
+}
+
+.auth-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.auth-container label {
+    text-align: left;
+    font-weight: bold;
+    margin: 10px 0 5px;
+}
+
+.auth-container input {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.auth-container button {
+    background: #004080;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.auth-container button:hover {
+    background: #003366;
+}
+
+.auth-container p {
+    margin-top: 10px;
+}
+
+.auth-container p a {
+    color: #004080;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.auth-container p a:hover {
+    text-decoration: underline;
+}

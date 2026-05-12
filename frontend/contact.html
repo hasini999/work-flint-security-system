@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Information</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #2c3e50;
+        }
+
+        .card {
+            background: #fff;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        a {
+            color: #2c3e50;
+        }
+
+        .trap-link {
+            color: #c0392b;
+            font-size: 13px;
+            margin-left: 6px;
+        }
+
+        .section-title {
+            margin-bottom: 8px;
+        }
+
+        .muted {
+            font-size: 13px;
+            color: gray;
+        }
+
+        button {
+            padding: 8px 12px;
+            background: #3b6dab;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #4CAF50;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>Contact Directory</h1>
+<p class="muted">Internal communication directory for employees and departments.</p>
+
+<!-- SUPERVISOR -->
+<div class="card">
+    <h3 class="section-title">Supervisor</h3>
+    <p><b>Name:</b> John Doe</p>
+    <p><b>Role:</b> Team Lead</p>
+    <p><b>Email:</b> <a href="mailto:johndoe@company.com">johndoe@company.com</a></p>
+    <p><b>Phone:</b> (123) 456-7890</p>
+
+    <!-- subtle trap inside real section -->
+    <a href="#" class="trap-link">View supervisor private notes</a>
+</div>
+
+<!-- HR -->
+<div class="card">
+    <h3 class="section-title">Human Resources</h3>
+    <p><b>Name:</b> Jane Smith</p>
+    <p><b>Role:</b> HR Manager</p>
+    <p><b>Email:</b> <a href="mailto:janesmith@company.com">janesmith@company.com</a></p>
+    <p><b>Phone:</b> (123) 456-7891</p>
+
+    <!-- honeypot disguised as internal HR tool -->
+    <a href="#" class="trap-link">HR confidential escalation portal</a>
+</div>
+
+<!-- IT SUPPORT -->
+<div class="card">
+    <h3 class="section-title">IT Support</h3>
+    <p><b>Name:</b> Emily Johnson</p>
+    <p><b>Email:</b> emilyjohnson@company.com</p>
+    <p><b>Extension:</b> 2045</p>
+
+    <button onclick="alert('Ticket raised')">Raise Support Ticket</button>
+
+    <!-- trap inside IT section -->
+    <a href="#" class="trap-link">Admin system override console</a>
+</div>
+
+<!-- FACILITIES -->
+<div class="card">
+    <h3 class="section-title">Facilities Management</h3>
+    <p><b>Name:</b> Michael Brown</p>
+    <p><b>Email:</b> facilities@company.com</p>
+
+    <a href="maintenance-schedule.html">View maintenance schedule</a>
+
+    <!-- subtle trap -->
+    <a href="#" class="trap-link">Unlock restricted building access list</a>
+</div>
+
+<!-- EMERGENCY -->
+<div class="card">
+    <h3 class="section-title">Emergency Contacts</h3>
+    <p><b>Security:</b> 911 / Internal 100</p>
+    <p><b>Building Control:</b> (123) 456-7894</p>
+
+    <!-- hidden admin-style trap -->
+    <a href="#" class="trap-link">Emergency override panel</a>
+</div>
+
+<!-- RESOURCES -->
+<div class="card">
+    <h3 class="section-title">Internal Resources</h3>
+    <ul>
+        <li><a href="employee-handbook.pdf">Employee Handbook</a></li>
+        <li><a href="company-policies.pdf">Company Policies</a></li>
+        <li><a href="faq.html">Company FAQ</a></li>
+    </ul>
+
+    <!-- suspicious internal file -->
+    <a href="#" class="trap-link">Download encrypted HR archive</a>
+</div>
+
+<!-- FEEDBACK -->
+<div class="card">
+    <h3 class="section-title">Feedback</h3>
+    <p>Submit suggestions or issues to HR or management.</p>
+    <a href="feedback.html">Go to Feedback Form</a>
+
+    <!-- trap link blended naturally -->
+    <p>
+        <a href="#" class="trap-link">Anonymous complaint escalation system</a>
+    </p>
+</div>
+
+<!-- hidden honeypot block -->
+<div class="hidden">
+    <a href="salary-access-log.html">Salary access log viewer</a>
+    <a href="internal-audit.html">Internal audit panel</a>
+</div>
+
+</body>
+</html>

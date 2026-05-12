@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Employee Records</title>
+
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      padding: 20px;
+      background: #f4f6f8;
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+
+    .box {
+      margin: 20px auto;
+      text-align: center;
+    }
+
+    input, select {
+      padding: 10px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin: 5px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      margin-top: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background: #ffc107;
+    }
+
+    tr:hover {
+      background: #f1f1f1;
+    }
+
+    .status-active { color: green; }
+    .status-inactive { color: red; }
+
+    .btn {
+      padding: 10px 15px;
+      border: none;
+      background: #007bff;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .btn:hover {
+      background: #0056b3;
+    }
+
+    .trap-link {
+      color: #c0392b;
+      font-size: 13px;
+      margin-left: 8px;
+      cursor: pointer;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .panel {
+      margin-top: 25px;
+      padding: 15px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>Employee Records</h1>
+
+<!-- SEARCH + FILTER -->
+<div class="box">
+  <input type="text" id="searchInput" placeholder="Search employee (name, dept, role)">
+  <select id="departmentFilter">
+    <option value="">All Departments</option>
+    <option value="Finance">Finance</option>
+    <option value="Sales">Sales</option>
+    <option value="IT">IT</option>
+  </select>
+
+  <!-- subtle trap inside filter area -->
+  <a class="trap-link">Advanced HR query builder</a>
+</div>
+
+<!-- EMPLOYEE TABLE -->
+<table id="employeeTable">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Department</th>
+      <th>Role</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>EMP001</td>
+      <td>Ravi Kumar</td>
+      <td>Finance</td>
+      <td>Analyst</td>
+      <td class="status-active">Active</td>
+    </tr>
+
+    <tr>
+      <td>EMP002</td>
+      <td>Sunny Mehra</td>
+      <td>Sales</td>
+      <td>Executive</td>
+      <td class="status-active">Active</td>
+    </tr>
+
+    <tr>
+      <td>EMP003</td>
+      <td>Priya Sharma</td>
+      <td>Finance</td>
+      <td>Manager</td>
+      <td class="status-active">Active</td>
+    </tr>
+
+    <tr>
+      <td>EMP004</td>
+      <td>Aditya Singh</td>
+      <td>Sales</td>
+      <td>Lead</td>
+      <td class="status-inactive">Inactive</td>
+    </tr>
+
+    <tr>
+      <td>EMP005</td>
+      <td>Neha Verma</td>
+      <td>IT</td>
+      <td>Engineer</td>
+      <td class="status-active">Active</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ACTION PANEL -->
+<div class="panel">
+  <h3>HR Actions</h3>
+
+  <button class="btn">Export Records</button>
+  <button class="btn">Generate Report</button>
+  <button class="btn">Sync Database</button>
+
+  <!-- honeypot disguised as admin feature -->
+  <button class="btn" style="background:#c0392b;">
+    Force delete employee history logs
+  </button>
+
+  <!-- subtle trap link -->
+  <p>
+    <a class="trap-link">Access hidden payroll mapping table</a>
+  </p>
+</div>
+
+<!-- DELETE PANEL -->
+<div class="panel">
+  <h3>Data Management</h3>
+
+  <button class="btn" id="deleteAllBtn">Delete All Records</button>
+
+  <!-- hidden dangerous-looking feature -->
+  <a class="trap-link">Purge audit trail (irreversible)</a>
+</div>
+
+<!-- HONEYPOT AREAS (hidden but realistic backend feel) -->
+<div class="hidden">
+  <a href="salary-master-export.html">Salary Master Export</a>
+  <a href="employee-risk-score.html">Employee Risk Scoring Model</a>
+  <a href="internal-access-log.html">Internal Access Logs</a>
+</div>
+
+<!-- SCRIPT (kept simple + realistic) -->
+<script>
+  document.getElementById("deleteAllBtn").addEventListener("click", function() {
+    if(confirm("Are you sure you want to delete all records?")) {
+      document.querySelector('#employeeTable tbody').innerHTML = '';
+      alert("All records deleted.");
+    }
+  });
+</script>
+
+</body>
+</html>

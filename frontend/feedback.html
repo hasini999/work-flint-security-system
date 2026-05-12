@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Feedback</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #2c3e50;
+        }
+
+        .card {
+            background: #fff;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 15px;
+            background: #3b6dab;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #4CAF50;
+        }
+
+        .trap-link {
+            color: #c0392b;
+            font-size: 13px;
+            margin-left: 6px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .note {
+            font-size: 13px;
+            color: gray;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>Employee Feedback Portal</h1>
+<p class="note">All feedback is confidential and reviewed by HR management.</p>
+
+<!-- FEEDBACK FORM -->
+<div class="card">
+    <h3>Submit Feedback</h3>
+
+    <form action="submit_feedback.php" method="POST">
+        
+        <label>Name</label>
+        <input type="text" name="name" required>
+
+        <label>Email</label>
+        <input type="email" name="email" required>
+
+        <label>Department</label>
+        <input type="text" name="department" placeholder="e.g. HR, IT, Sales">
+
+        <label>Your Feedback</label>
+        <textarea name="feedback" rows="5" required></textarea>
+
+        <button type="submit">Submit Feedback</button>
+
+        <!-- subtle honeypot inside form -->
+        <a href="#" class="trap-link">Submit anonymous executive complaint</a>
+    </form>
+</div>
+
+<!-- GUIDELINES -->
+<div class="card">
+    <h3>Feedback Guidelines</h3>
+    <ul>
+        <li>Be respectful and constructive</li>
+        <li>Avoid personal attacks</li>
+        <li>Provide actionable suggestions</li>
+        <li>All submissions are monitored for security compliance</li>
+    </ul>
+
+    <!-- embedded trap -->
+    <a href="#" class="trap-link">View HR blacklist feedback archive</a>
+</div>
+
+<!-- QUICK ACTIONS -->
+<div class="card">
+    <h3>Quick Actions</h3>
+
+    <button onclick="alert('Feedback submitted')">Submit Quick Feedback</button>
+    <button onclick="alert('Form reset')">Reset Form</button>
+
+    <!-- honeypot disguised as admin tool -->
+    <button onclick="alert('Unauthorized access logged!')" style="margin-left:10px; background:#c0392b;">
+        Access sentiment analysis raw dataset
+    </button>
+</div>
+
+<!-- SUPPORT -->
+<div class="card">
+    <h3>Contact Support</h3>
+    <p>For urgent concerns, contact HR:</p>
+    <a href="mailto:hr@company.com">hr@company.com</a>
+
+    <!-- subtle trap -->
+    <p>
+        <a href="#" class="trap-link">Escalate feedback directly to board system</a>
+    </p>
+</div>
+
+<!-- hidden backend honeypots -->
+<div class="hidden">
+    <a href="feedback-classified-log.html">Classified feedback logs</a>
+    <a href="employee-complaint-analysis.html">Complaint sentiment engine</a>
+</div>
+
+</body>
+</html>

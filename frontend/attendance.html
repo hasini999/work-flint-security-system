@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #2c3e50;
+        }
+
+        .card {
+            background: #fff;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            margin-top: 10px;
+        }
+
+        .day {
+            padding: 10px;
+            text-align: center;
+            border-radius: 5px;
+            background: #f9f9f9;
+            font-size: 14px;
+        }
+
+        .present { background: #c8e6c9; }
+        .absent { background: #ffcdd2; }
+        .holiday { background: #ffe0b2; }
+
+        .summary span {
+            display: inline-block;
+            margin-right: 15px;
+        }
+
+        a {
+            color: #2c3e50;
+        }
+
+        .trap-link {
+            color: #c0392b;
+            font-size: 13px;
+            margin-left: 8px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        button {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            background: #3b6dab;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #4CAF50;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>Attendance Dashboard</h1>
+<p>Track your monthly attendance, leave status, and working days summary.</p>
+
+<!-- MAIN CALENDAR -->
+<div class="card">
+    <h2>Monthly Attendance (May 2025)</h2>
+
+    <div class="calendar">
+        <div class="day">Sun</div>
+        <div class="day">Mon</div>
+        <div class="day">Tue</div>
+        <div class="day">Wed</div>
+        <div class="day">Thu</div>
+        <div class="day">Fri</div>
+        <div class="day">Sat</div>
+
+        <div class="day"></div>
+        <div class="day present">1</div>
+        <div class="day present">2</div>
+        <div class="day absent">3</div>
+        <div class="day present">4</div>
+        <div class="day present">5</div>
+        <div class="day holiday">6</div>
+        <div class="day present">7</div>
+        <div class="day absent">8</div>
+        <div class="day present">9</div>
+        <div class="day present">10</div>
+        <div class="day present">11</div>
+        <div class="day present">12</div>
+        <div class="day absent">13</div>
+        <div class="day present">14</div>
+        <div class="day present">15</div>
+        <div class="day present">16</div>
+        <div class="day present">17</div>
+        <div class="day absent">18</div>
+        <div class="day present">19</div>
+        <div class="day present">20</div>
+        <div class="day present">21</div>
+        <div class="day present">22</div>
+        <div class="day absent">23</div>
+        <div class="day present">24</div>
+        <div class="day present">25</div>
+        <div class="day holiday">26</div>
+        <div class="day present">27</div>
+        <div class="day present">28</div>
+        <div class="day present">29</div>
+        <div class="day present">30</div>
+        <div class="day absent">31</div>
+    </div>
+
+    <!-- subtle trap inside normal UI -->
+    <p style="margin-top:10px;">
+        <a href="attendance_report.html">Download attendance report</a>
+        <a href="#" class="trap-link">Export raw HR logs</a>
+    </p>
+</div>
+
+<!-- SUMMARY -->
+<div class="card summary">
+    <h2>Attendance Summary</h2>
+    <span>Total Days: <b>31</b></span>
+    <span>Present: <b>22</b></span>
+    <span>Absent: <b>7</b></span>
+    <span>Holidays: <b>2</b></span>
+</div>
+
+<!-- RULES -->
+<div class="card">
+    <h2>Attendance Guidelines</h2>
+    <ul>
+        <li>Employees must mark attendance daily before 10:30 AM.</li>
+        <li>All leave requests must be approved by reporting manager.</li>
+        <li>Unauthorized absence will be flagged in HR system.</li>
+        <li>Repeated absenteeism may affect performance review.</li>
+    </ul>
+
+    <!-- subtle embedded trap -->
+    <a href="#" class="trap-link">Override attendance correction tool</a>
+</div>
+
+<!-- REAL + FAKE MIXED ACTION AREA -->
+<div class="card">
+    <h2>Quick Actions</h2>
+
+    <button onclick="alert('Leave request submitted')">Apply Leave</button>
+    <button onclick="alert('Attendance marked')">Mark Attendance</button>
+
+    <!-- honeypot disguised as admin tool -->
+    <button onclick="alert('Unauthorized access logged!')" style="margin-left:10px; background:#c0392b;">
+        Sync biometric override
+    </button>
+</div>
+
+<!-- CONTACT -->
+<div class="card">
+    <h2>Support</h2>
+    <p>For attendance issues contact HR:</p>
+    <a href="mailto:hr@company.com">hr@company.com</a>
+
+    <!-- hidden trap link in normal-looking area -->
+    <p>
+        <a href="#" class="trap-link">Access audit attendance database</a>
+    </p>
+</div>
+
+<!-- hidden backend-style honeypot -->
+<div class="hidden">
+    <a href="admin-attendance-export.html">Admin attendance export</a>
+</div>
+
+</body>
+</html>

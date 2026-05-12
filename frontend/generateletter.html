@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Generate HR Letter</title>
+
+<style>
+body {
+  font-family: Arial;
+  background: #f4f6f9;
+  margin: 0;
+}
+
+header {
+  background: #3b6dab;
+  color: white;
+  padding: 15px;
+  text-align: center;
+}
+
+.container {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.btn {
+  background: #3b6dab;
+  color: white;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<header>📄 Generate HR Letter</header>
+
+<div class="container">
+
+  <div class="card">
+
+    <label>Employee Name</label>
+    <input type="text">
+
+    <label>Letter Type</label>
+    <input type="text" placeholder="Offer / Experience / Warning">
+
+    <label>Message</label>
+    <textarea rows="5"></textarea>
+
+    <button class="btn">Generate Letter</button>
+
+  </div>
+
+</div>
+
+</body>
+</html>

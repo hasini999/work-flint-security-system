@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Admin Security Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+
+<style>
+  body {
+    font-family: Arial;
+    margin: 0;
+    background: #0f172a;
+    color: white;
+  }
+
+  header {
+    background: #1e293b;
+    padding: 20px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    padding: 20px;
+  }
+
+  .card {
+    background: #1e293b;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+  }
+
+  .card h2 {
+    font-size: 28px;
+    margin: 0;
+    color: #38bdf8;
+  }
+
+  .card p {
+    margin: 5px 0 0;
+    color: #94a3b8;
+  }
+
+  .section {
+    margin: 20px;
+    background: #1e293b;
+    padding: 20px;
+    border-radius: 10px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  th, td {
+    padding: 10px;
+    border-bottom: 1px solid #334155;
+    text-align: left;
+  }
+
+  th {
+    color: #38bdf8;
+  }
+
+  .high { color: red; font-weight: bold; }
+  .medium { color: orange; font-weight: bold; }
+  .low { color: lightgreen; font-weight: bold; }
+
+  .live {
+    color: #22c55e;
+    font-weight: bold;
+  }
+
+  a {
+  color: #38bdf8;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+a:hover {
+  color: #0ea5e9;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+  🛡 ADMIN SECURITY DASHBOARD (REAL-TIME INSIDER THREAT MONITORING)
+</header>
+
+<!-- STATS -->
+<div class="grid">
+
+  <div class="card">
+    <h2 id="totalAlerts">0</h2>
+    <p>Total Alerts</p>
+  </div>
+
+  <div class="card">
+    <h2 id="critical">0</h2>
+    <p>Critical Threats</p>
+  </div>
+
+  <div class="card">
+    <h2 id="honeypots">0</h2>
+    <p>Honeypot Triggers</p>
+  </div>
+
+  <div class="card">
+    <h2 class="live" id="liveStatus">LIVE</h2>
+    <p>Monitoring Status</p>
+  </div>
+
+</div>
+
+<!-- TABLE -->
+<div class="section">
+  <h3>⚡ Live Security Event Feed</h3>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Time</th>
+        <th>Event</th>
+        <th>Page</th>
+        <th>Status</th>
+        <th>Risk</th>
+      </tr>
+    </thead>
+
+    <tbody id="logTable"></tbody>
+  </table>
+</div>
+
+<!-- USERS -->
+<div class="section">
+  <h3>🔥 Top Risk Users</h3>
+  <ul id="riskUsers"></ul>
+</div>
+
+<script>
+
+const socket = io("http://localhost:3000");
+
+/* =========================
+   REAL-TIME UPDATES
+========================= */
+
+socket.on("security-alert", (data) => {
+
+  addLiveEvent(data);
+
+  updateStatsRealtime(data);
+
+});
+
+/* =========================
+   LOAD DASHBOARD INIT
+========================= */
+
+async function loadDashboard() {
+
+  const res = await fetch("/api/security-logs");
+  const data = await res.json();
+
+  let total = data.length;
+  let critical = 0;
+  let honeypot = 0;
+
+  const table = document.getElementById("logTable");
+  table.innerHTML = "";
+
+  data.forEach(log => {
+
+    const type = (log.event_type || "").toLowerCase();
+
+    if (type.includes("root") || type.includes("disable") || type.includes("master")) {
+      critical++;
+    }
+
+    if (type.includes("honeypot")) {
+      honeypot++;
+    }
+
+    const risk =
+      type.includes("root") || type.includes("disable")
+        ? "CRITICAL"
+        : type.includes("access")
+        ? "HIGH"
+        : "LOW";
+
+    table.innerHTML += `
+<tr>
+  <td>${log.created_at}</td>
+  <td>${log.event_type}</td>
+  <td>${log.description || "-"}</td>
+  <td>${log.severity || "LOW"}</td>
+  <td>
+    <button onclick="showSummary(${log.id}, '${log.event_type}')">
+      🧠 AI Summary
+    </button>
+    <a href="/api/security/report/pdf/${log.id}" target="_blank">
+      📄 Download Report
+    </a>
+  </td>
+</tr>
+`;
+  });
+
+  async function showSummary(id, eventType) {
+
+    const res = await fetch("/api/security-logs");
+    const logs = await res.json();
+
+    const log = logs.find(l => l.id == id);
+
+    if (!log) return;
+
+    let msg = "";
+
+    const type = eventType.toLowerCase();
+
+    if (type.includes("root")) {
+        msg = "CRITICAL: Privilege escalation attempt detected. Possible insider attack.";
+    } else if (type.includes("disable")) {
+        msg = "HIGH: Security system tampering attempt detected.";
+    } else if (type.includes("honeypot")) {
+        msg = "HIGH: User triggered decoy system. Suspicious behavior flagged.";
+    } else {
+        msg = "MEDIUM/LOW: Normal or low-risk activity detected.";
+    }
+
+    alert("🧠 AI INCIDENT SUMMARY\n\n" + msg);
+}
+
+
+  document.getElementById("totalAlerts").innerText = total;
+  document.getElementById("critical").innerText = critical;
+  document.getElementById("honeypots").innerText = honeypot;
+}
+
+/* =========================
+   LIVE EVENT ADD
+========================= */
+
+function addLiveEvent(data) {
+
+  const table = document.getElementById("logTable");
+
+  const riskClass =
+    data.risk >= 50 ? "high" :
+    data.risk >= 30 ? "medium" : "low";
+
+  const row = `
+    <tr>
+      <td>${new Date().toLocaleTimeString()}</td>
+      <td>${data.event}</td>
+      <td>${data.page}</td>
+      <td class="${riskClass}">LIVE</td>
+      <td>${data.risk}</td>
+    </tr>
+  `;
+
+  table.innerHTML = row + table.innerHTML;
+}
+
+/* =========================
+   LIVE STATS UPDATE
+========================= */
+
+function updateStatsRealtime(data) {
+
+  let total = parseInt(document.getElementById("totalAlerts").innerText);
+  let critical = parseInt(document.getElementById("critical").innerText);
+  let honeypot = parseInt(document.getElementById("honeypots").innerText);
+
+  total++;
+
+  if (data.event.includes("root") || data.event.includes("disable")) {
+    critical++;
+  }
+
+  if (data.event.includes("honeypot")) {
+    honeypot++;
+  }
+
+  document.getElementById("totalAlerts").innerText = total;
+  document.getElementById("critical").innerText = critical;
+  document.getElementById("honeypots").innerText = honeypot;
+}
+
+/* =========================
+   RISK USERS
+========================= */
+
+async function loadRiskUsers() {
+
+  const res = await fetch("/api/users");
+  const users = await res.json();
+
+  users.sort((a, b) => (b.risk_score || 0) - (a.risk_score || 0));
+
+  const list = document.getElementById("riskUsers");
+  list.innerHTML = "";
+
+  users.slice(0, 5).forEach(u => {
+
+    list.innerHTML += `
+      <li>${u.name} — Risk: ${u.risk_score || 0}</li>
+    `;
+  });
+}
+
+/* =========================
+   INIT
+========================= */
+
+loadDashboard();
+loadRiskUsers();
+
+setInterval(loadRiskUsers, 10000); // refresh risk users every 10s
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Real-Time Security Dashboard</title>
+
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+
+  <style>
+    body {
+      font-family: Arial;
+      background: #0f172a;
+      color: white;
+      margin: 0;
+    }
+
+    header {
+      padding: 15px;
+      background: #1e293b;
+      text-align: center;
+      font-size: 20px;
+    }
+
+    .container {
+      padding: 20px;
+    }
+
+    .card {
+      background: #1e293b;
+      padding: 15px;
+      margin-bottom: 10px;
+      border-left: 5px solid red;
+    }
+
+    .low { border-left-color: green; }
+    .medium { border-left-color: orange; }
+    .high { border-left-color: red; }
+  </style>
+</head>
+
+<body>
+
+<header>⚡ REAL-TIME SECURITY MONITOR</header>
+
+<div class="container" id="feed"></div>
+
+<script>
+
+const socket = io("http://localhost:3000");
+
+socket.on("security-alert", (data) => {
+
+    const div = document.createElement("div");
+
+    let level = "low";
+
+    if (data.risk >= 50) level = "high";
+    else if (data.risk >= 30) level = "medium";
+
+    div.className = "card " + level;
+
+    div.innerHTML = `
+        <b>Event:</b> ${data.event}<br>
+        <b>User:</b> ${data.employee}<br>
+        <b>Page:</b> ${data.page}<br>
+        <b>Risk:</b> ${data.risk}<br>
+        <b>Time:</b> ${data.timestamp}
+    `;
+
+    document.getElementById("feed").prepend(div);
+});
+
+</script>
+
+</body>
+</html>

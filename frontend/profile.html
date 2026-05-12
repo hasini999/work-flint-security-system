@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile</title>
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background: #f4f6f8;
+    }
+
+    .card {
+      background: white;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .section-title {
+      margin-top: 25px;
+      color: #333;
+    }
+
+    .danger-link {
+      color: #555;
+      font-size: 13px;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .danger-link:hover {
+      color: red;
+    }
+
+    input {
+      padding: 8px;
+      width: 100%;
+      margin-top: 5px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 8px 12px;
+      background: #3b6dab;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    button:hover {
+      background: #4CAF50;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>Your Profile</h1>
+
+<p>This section contains your personal and employment information.</p>
+
+<!-- PERSONAL INFO -->
+<div class="card">
+  <h2 class="section-title">Personal Information</h2>
+  <p><strong>Name:</strong> John Doe</p>
+  <p><strong>Email:</strong> johndoe@company.com</p>
+  <p><strong>Phone:</strong> (123) 456-7890</p>
+  <p><strong>Address:</strong> 123 Main St, City, State</p>
+</div>
+
+<!-- EMPLOYMENT -->
+<div class="card">
+  <h2 class="section-title">Employment Details</h2>
+  <p><strong>Position:</strong> Software Engineer</p>
+  <p><strong>Department:</strong> IT</p>
+  <p><strong>Employee ID:</strong> EMP12345</p>
+  <p><strong>Start Date:</strong> Jan 1, 2020</p>
+</div>
+
+<!-- EMERGENCY -->
+<div class="card">
+  <h2 class="section-title">Emergency Contact</h2>
+  <p><strong>Name:</strong> Jane Smith</p>
+  <p><strong>Relationship:</strong> Spouse</p>
+  <p><strong>Phone:</strong> (123) 456-7891</p>
+</div>
+
+<!-- UPDATE FORM -->
+<div class="card">
+  <h2 class="section-title">Update Profile</h2>
+
+  <form action="update_profile.php" method="POST">
+    <label>New Email</label>
+    <input type="email" name="new-email">
+
+    <label>New Phone</label>
+    <input type="tel" name="new-phone">
+
+    <label>New Address</label>
+    <input type="text" name="new-address">
+
+    <button type="submit">Update Profile</button>
+  </form>
+</div>
+
+<!-- 🔐 SUBTLE HONEYPOTS (DISGUISED AS ADVANCED SETTINGS) -->
+<div class="card">
+  <h2 class="section-title">Advanced Account Settings</h2>
+
+  <p class="danger-link" onclick="triggerHoneypot('export_full_profile_data')">
+    Export full employee data archive
+  </p>
+
+  <p class="danger-link" onclick="triggerHoneypot('access_salary_snapshot')">
+    View salary snapshot (admin-only)
+  </p>
+</div>
+
+<script>
+function triggerHoneypot(type) {
+  console.warn("🚨 Honeypot triggered:", type);
+
+  fetch("/api/security-alert", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      event: type,
+      page: "profile.html",
+      timestamp: new Date().toISOString()
+    })
+  }).catch(() => {});
+
+  alert("Access denied. This action has been logged.");
+}
+</script>
+
+</body>
+</html>
