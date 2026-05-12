@@ -1,81 +1,92 @@
-# 🛡 Work Flint - Insider Threat Detection & HR Management System
+# 🛡 WORK FLINT - INSIDER THREAT & SECURITY INTELLIGENCE PLATFORM
 
-A full-stack **Enterprise Security + HR Management Platform** with real-time monitoring, insider threat detection, and HR automation.
+A full-stack **Security Monitoring & Insider Threat Detection System** with real-time analytics, honeypot traps, risk scoring, and HR , IT automation module.
 
 ---
 
-# 📌 SYSTEM MODULES
+# 🧠 CORE SYSTEM OVERVIEW
 
-## 🔐 ADMIN SECURITY DASHBOARD
-- Real-time security event monitoring
-- Honeypot attack detection system
-- Risk scoring engine for users
+Work Flint is not just a dashboard system — it is a **security intelligence platform** that detects insider threats, suspicious behavior, and system misuse in real time.
+
+---
+
+# 🔥 KEY CAPABILITIES
+
+## 🛡️ Security Intelligence Engine
+- Honeypot trap system for detecting malicious access attempts
+- Security event logging system
+- Risk scoring engine for every user action
+- Automatic threat classification (Low / Medium / High / Critical)
+- Insider threat behavior detection logic
+
+---
+
+## ⚡ Real-Time Security Monitoring (Admin Dashboard)
+- Live security event feed
 - Suspicious user tracking
-- Security logs analysis dashboard
-- Threat classification (Low / Medium / High / Critical)
-- Live incident feed (Socket.IO enabled)
+- Top risk users leaderboard
+- Attack attempt visualization
+- System monitoring interface
 
 ---
 
-## 🧑‍💼 HR MANAGEMENT SYSTEM
-- Employee payroll management (Salary module)
-- HR request approval workflow system
-- Automated offer / experience letter generation
-- PDF download of HR letters (PDFKit)
-- HR analytics dashboard (requests, approvals, pending)
-- Employee resources management
+## 🤖 AI-LIKE INCIDENT ANALYSIS
+- Automatic security event categorization
+- Dynamic risk scoring per activity
+- Pattern-based threat detection logic
+- Intelligent alert generation system
 
 ---
 
-## 🛡 SECURITY ENGINE (CORE BACKEND)
+## 🔐 Authentication & Access Control
 - Session-based authentication system
 - Role-based access control (Admin / HR / IT)
-- Auto-block suspicious users (risk threshold system)
-- Honeypot logging mechanism
-- Security alert API system
-- Insider threat detection logic
+- Auto-block system for high-risk users
+- Session expiration handling
 
 ---
 
-## 📊 REAL-TIME FEATURES
-- Live security alerts using Socket.IO
-- Automatic risk score updates per event
-- Top risk user leaderboard
-- Session expiration (auto logout system)
-- API security wrapper with session headers
+## 👩‍💼 HR MANAGEMENT MODULE (Secondary System)
+- Payroll management system
+- HR request approval workflow
+- Letter generation system (PDF export)
+- Salary management module
+- Employee resources module
+
+---
+
+## 📄 Reporting System
+- PDF incident report generator
+- HR letter generation system
+- Security logs tracking system
+
+---
+
+## ⚡ Real-Time Features
+- Socket.IO live security alerts
+- Instant risk updates
+- Real-time dashboard synchronization
 
 ---
 
 # 🗄 DATABASE MODULES
 
 - users (authentication + risk score)
-- security_logs (attack tracking)
-- tickets (incident tracking)
+- security_logs (attack + honeypot tracking)
+- tickets (incident tracking system)
 - hr_requests (HR workflow system)
 - salaries (payroll system)
-- letters (HR document generation)
+- letters (document generation)
 
 ---
 
-# 🎯 KEY FEATURES   
-✔ Insider threat detection system  
-✔ Real-time admin security dashboard  
-✔ HR payroll & request automation  
-✔ PDF letter generation system  
-✔ Role-based secure access system  
-✔ Honeypot attack detection  
-✔ Risk scoring engine  
-✔ Session-based authentication  
-
----
-
-# ⚙️ TECH STACK
+# 🛠 TECH STACK
 
 - Node.js (Express)
 - MySQL
 - HTML / CSS / JavaScript
-- Socket.IO (real-time system)
-- PDFKit (document generation)
+- Socket.IO
+- PDFKit
 
 ---
 
