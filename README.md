@@ -85,55 +85,56 @@ It combines HR operations with cybersecurity monitoring to demonstrate full-stac
 
 ---
 
-## 🧭 System Architecture Overview
+## 📐 System Architecture
 
-The Work Flint system follows a layered enterprise architecture combining authentication, role-based access control, real-time monitoring, and database-driven security intelligence.
+The Work Flint system follows a secure layered architecture:
 
-                         ┌──────────────────────────┐
-                         │      👩‍💼 USERS           │
-                         │ HR | Admin | IT Users    │
-                         └──────────┬───────────────┘
-                                    │
-                                    ▼
-                 ┌──────────────────────────────────┐
-                 │     🌐 FRONTEND LAYER            │
-                 │  HTML Dashboards (HR/Admin/IT)   │
-                 │  Login / Security UI / Reports   │
-                 └──────────┬───────────────────────┘
-                            │
-                            ▼
-                 ┌──────────────────────────────────┐
-                 │     ⚙ BACKEND (Node.js)         │
-                 │      Express.js Server           │
-                 │  - Auth Middleware               │
-                 │  - Role-Based Access Control    │
-                 │  - Session Management            │
-                 └──────────┬───────────────────────┘
-                            │
-        ┌───────────────────┼───────────────────────┐
-        │                   │                       │
-        ▼                   ▼                       ▼
+### 🧑‍💼 1. Users Layer
+- HR Users
+- Admin Users
+- IT Security Users
 
-┌───────────────┐  ┌──────────────────┐  ┌────────────────────┐
-│ 🔐 AUTH SYSTEM │  │ 🛡 SECURITY ENGINE│  │ 👩‍💼 HR MODULE     │
-│ Sessions       │  │ Risk Scoring     │  │ Payroll System     │
-│ Login Control  │  │ Honeypot Detect  │  │ Requests / Letters │
-└──────┬────────┘  └────────┬─────────┘  └─────────┬──────────┘
-       │                    │                      │
-       └────────────┬───────┴──────────────┬───────┘
-                    ▼                      ▼
-           ┌────────────────────────────────────┐
-           │        🗄 MYSQL DATABASE           │
-           │ users | logs | salaries | letters │
-           │ hr_requests | tickets             │
-           └────────────────────────────────────┘
-                            │
-                            ▼
-           ┌────────────────────────────────────┐
-           │ ⚡ REAL-TIME LAYER (Socket.io)     │
-           │ Live Security Dashboard Updates    │
-           │ Threat Alerts / Risk Updates       │
-           └────────────────────────────────────┘
+⬇
+
+### 🌐 2. Frontend Layer
+- HR Dashboard (Payroll, Requests, Letters)
+- Admin Security Dashboard (Threat Monitoring)
+- IT Security Logs Panel
+- Login & Authentication Pages
+
+⬇
+
+### ⚙ 3. Backend Layer (Node.js + Express)
+- Authentication Middleware (Session-based)
+- Role-Based Access Control (HR / Admin / IT)
+- Security APIs (Threat Detection, Honeypot System)
+- HR APIs (Payroll, Requests, Letters)
+- Risk Scoring Engine
+
+⬇
+
+### 🔐 4. Security Engine
+- Honeypot Detection System
+- Insider Threat Detection Logic
+- Risk Score Calculation
+- Auto-block High Risk Users
+
+⬇
+
+### 🗄 5. Database Layer (MySQL)
+- users
+- security_logs
+- hr_requests
+- salaries
+- letters
+- tickets
+
+⬇
+
+### ⚡ 6. Real-Time Layer (Socket.io)
+- Live Security Dashboard Updates
+- Instant Threat Alerts
+- Risk Score Updates in Real-time
 
 ---
 
