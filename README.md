@@ -1,4 +1,4 @@
-# 🛡 🛡 Work Flint – Insider Threat Detection System using Honeypot & Dynamic Access Control
+# 🛡 Work Flint – Insider Threat Detection System using Honeypot & Dynamic Access Control
 
 A cybersecurity + HR intelligence simulation system designed to mimic enterprise Security Operations Center (SOC) workflows with real-time threat detection and insider risk monitoring.
 
