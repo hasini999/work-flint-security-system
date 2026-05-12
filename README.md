@@ -136,6 +136,8 @@ The Work Flint system follows a secure layered architecture:
 - Instant Threat Alerts
 - Risk Score Updates in Real-time
 
+![Architecture](docs/system-architecture.png)
+
 ---
 
 # 📁 Project Structure
