@@ -57,6 +57,18 @@ A full-stack **Enterprise Security + HR Management Platform** with real-time mon
 
 ---
 
+# 🎯 KEY FEATURES   
+✔ Insider threat detection system  
+✔ Real-time admin security dashboard  
+✔ HR payroll & request automation  
+✔ PDF letter generation system  
+✔ Role-based secure access system  
+✔ Honeypot attack detection  
+✔ Risk scoring engine  
+✔ Session-based authentication  
+
+---
+
 # ⚙️ TECH STACK
 
 - Node.js (Express)
@@ -72,3 +84,9 @@ A full-stack **Enterprise Security + HR Management Platform** with real-time mon
 ```bash
 npm install
 node server.js
+```
+---
+
+# 👩‍💻 AUTHOR
+
+Prabandala Hasini
