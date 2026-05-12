@@ -48,19 +48,20 @@ A full-stack **Insider Threat Detection & HR Management System** with:
 
 bash
 
-npm install
-node server.js
+-npm install
+-node server.js
 
 ---
 
 ## 📊 Highlights
-Real-time security monitoring
-Insider threat detection
-HR automation system
-PDF generation system
+
+-Real-time security monitoring
+-Insider threat detection
+-HR automation system
+-PDF generation system
 
 ---
 
 ## 👩‍💻 Author
 
-Prabandala Hasini
+-Prabandala Hasini
