@@ -2,7 +2,7 @@
 
 A cybersecurity + HR intelligence simulation system designed to mimic enterprise Security Operations Center (SOC) workflows with real-time threat detection and insider risk monitoring.
 
-- Work Flint is a full-stack enterprise-style security monitoring and HR management system built using Node.js, Express, MySQL, and real-time event tracking. It simulates a real-world corporate environment with insider threat detection, HR workflows, and security intelligence systems.
+Work Flint is a full-stack enterprise-style security monitoring and HR management system built using Node.js, Express, MySQL, and real-time event tracking. It simulates a real-world corporate environment with insider threat detection, HR workflows, and security intelligence systems.
 
 ---
 
