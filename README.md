@@ -47,6 +47,7 @@ A full-stack **Insider Threat Detection & HR Management System** with:
 ## ⚙️ Setup Instructions
 
 bash
+
 npm install
 node server.js
 
