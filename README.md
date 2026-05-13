@@ -1,11 +1,11 @@
 # 🛡 Work Flint – Insider Threat Detection System using Honeypot & Dynamic Access Control
 
-A cybersecurity + HR intelligence simulation system designed to mimic enterprise Security Operations Center (SOC) workflows with real-time threat detection and insider risk monitoring.
+A cybersecurity + intelligence simulation system designed to mimic enterprise Security Operations Center (SOC) workflows with real-time insider threat monitoring, honeypot deception systems, behavioral risk scoring, and dynamic access control.
 
-Work Flint is a full-stack enterprise-style security monitoring and HR management system built using Node.js, Express, MySQL, and real-time event tracking. It simulates a real-world corporate environment with insider threat detection, HR workflows, and security intelligence systems.
+Work Flint is a full-stack enterprise-style security monitoring and HR management system built using Node.js, Express, MySQL, and real-time event tracking. It simulates a real-world corporate environment with insider threat detection, real-time analytics, and intelligent incident reporting into one integrated enterprise-style system.
 
 ---
-
+ 
 # 🎯 Project Goal
 
 This project simulates how real enterprises monitor insider threats using:
@@ -14,59 +14,107 @@ This project simulates how real enterprises monitor insider threats using:
 - Honeypot deception systems
 - Role-based access control
 - Real-time security dashboards
+- Dynamic user access control
+- Automated user blocking systems
 
-It combines HR operations with cybersecurity monitoring to demonstrate full-stack enterprise system design.
+It combines HR and IT operations with cybersecurity monitoring to demonstrate full-stack enterprise system design.
 
 ---
 
 # 🚀 Features
 
-## 🔐 Security System
-- Insider threat detection engine
-- Honeypot trap system for attacker detection
-- Risk scoring system for users
-- Auto-block system for high-risk accounts
-- Session-based authentication
-- Role-based access control (Admin / HR / IT)
+## 🔐 Cybersecurity & Insider Threat Detection
+- Honeypot trap system for malicious user detection
+- Insider threat monitoring engine
+- Real-time suspicious activity tracking
+- Behavioral risk scoring system
+- Auto-block system for high-risk users
+- Dynamic access control based on risk score
+- Session timeout protection
+- Role-based access control (RBAC)
+- Security log tracking and monitoring
+- AI-style incident analysis system
+- Real-time attack monitoring with Socket.io
 
 ---
 
-## 📊 Admin Security Dashboard
-- Real-time security event monitoring
-- Live threat feed (Socket.io enabled)
-- Critical attack detection
-- Top risky users ranking
-- Security log tracking from database
+## 📊 Real-Time Admin Security Dashboard
+- Live security event feed
+- Real-time Socket.io monitoring
+- Threat severity tracking
+- Honeypot trigger monitoring
+- Critical threat counter
+- Top risky users leaderboard
+- Risk score visualization
+- Live security event injection
+- AI-generated incident summaries
+- PDF security incident report generation
+- User management controls
+
+---
+
+## Admin Actions:
+- 🚫 Block suspicious users
+- ✅ Unblock users
+- 🔄 Reset user risk score
+- 📄 Generate PDF incident reports
+- 🧠 View AI security analysis
 
 ---
 
 ## 👩‍💼 HR Management System
-- Employee payroll management (salary module)
+
+Integrated HR operations system built alongside cybersecurity controls.
+
+HR Features:
+
+- Payroll management system
+- Salary records module
 - HR request approval system
-- Employee records management
-- Attendance and announcements support
-- Resource management module
+- Employee management workflows
+- Attendance & announcements support
 - HR analytics dashboard
+- Employee document generation
+- Offer / Warning / Experience letter generation
 
 ---
 
-## 📄 Document & PDF System
-- Automated HR letter generation (Offer / Warning / Experience letters)
-- PDF download system using PDFKit
-- Stored and retrieved from MySQL database
+## 📄 Automated PDF-based security and HR reporting system using PDFKit.
+
+Security Reports Include:
+
+- Incident ID
+- Threat event type
+- Timestamp
+- AI-generated severity analysis
+- Threat explanation
+- Business impact analysis
+- Security recommendations
+  
+HR Reports Include:
+
+- Offer letters
+- Warning letters
+- Experience certificates
 
 ---
 
-## ⚡ Real-Time Backend System
-- Express.js REST API backend
-- MySQL relational database integration
-- Socket.io real-time dashboard updates
-- Session timeout handling (1-hour expiry)
-- Security event logging system
+## ⚡ Real-Time Event Monitoring System
+
+Powered using Socket.io for enterprise-style live monitoring.
+
+Real-Time Features:
+
+- Instant threat broadcasting
+- Live dashboard updates
+- Real-time risk score changes
+- Dynamic event feed
+- Immediate admin visibility for suspicious actions
 
 ---
 
 ## 🧠 Intelligent Security Logic
+
 - Keyword-based threat detection (root, disable, master, export, surveillance)
 - Automatic risk scoring engine
 - Honeypot trigger detection
@@ -74,7 +122,34 @@ It combines HR operations with cybersecurity monitoring to demonstrate full-stac
 
 ---
 
-# 🏗 Tech Stack
+## 🧠 Security Logic Engine
+
+| Threat Type                 | Risk Points | Severity   |
+|----------------------------|------------|------------|
+| Honeypot Trigger           | +20        | 🟡 MEDIUM   |
+| Data Export                | +30        | 🟡 MEDIUM   |
+| Security Disable Attempt   | +40        | 🟠 HIGH     |
+| Surveillance Activity      | +45        | 🟠 HIGH     |
+| Root/Admin Escalation      | +50        | 🔴 CRITICAL |
+| Master Privilege Access    | +60        | 🔴 CRITICAL |
+
+---
+
+## 🔥 Dynamic Risk Scoring System
+
+Each suspicious activity increases the user's risk score.
+
+Automated Actions:
+
+- Risk ≥ 50 → User flagged as HIGH RISK
+- Risk ≥ 80 → User automatically blocked
+- Admin dashboard updates instantly
+
+This simulates enterprise insider threat detection systems used in SOC environments.
+
+---
+
+##  🏗 Tech Stack
 
 - Frontend: HTML, CSS, JavaScript
 - Backend: Node.js, Express.js
@@ -109,7 +184,9 @@ The Work Flint system follows a secure layered architecture:
 - Role-Based Access Control (HR / Admin / IT)
 - Security APIs (Threat Detection, Honeypot System)
 - HR APIs (Payroll, Requests, Letters)
+- IT APIs
 - Risk Scoring Engine
+- PDF APIs
 
 ⬇
 
@@ -136,8 +213,6 @@ The Work Flint system follows a secure layered architecture:
 - Instant Threat Alerts
 - Risk Score Updates in Real-time
 
-![Architecture](docs/system-architecture.png)
-
 ---
 
 # 📁 Project Structure
@@ -157,6 +232,11 @@ The Work Flint system follows a secure layered architecture:
 - Honeypot detection system
 - Risk scoring per user
 - Security logs database tracking
+- Real-time threat monitoring
+- Auto-block security system
+- Protected admin APIs
+- Security incident logging
+- Dynamic access restriction
 
 ---
 
@@ -174,9 +254,40 @@ The Work Flint system follows a secure layered architecture:
 # 📸 Modules Overview
 
 ## 🛡 Admin Security Dashboard
-- Live attack monitoring system
-- Risk scoring visualization
-- Security event logs
+
+🛡 Live Threat Feed
+
+Displays:
+
+- Event type
+- Threat severity
+- Triggered page
+- Risk level
+- Real-time updates
+  
+🔥 Top Risk Users
+
+Displays:
+
+- User ranking
+- Risk score
+- Role
+- Security actions
+
+Includes:
+
+- Block User
+- Unblock User
+- Reset Risk Score
+  
+🧠 AI Security Summary
+
+AI-style analysis for each incident:
+
+- Threat severity
+- Technical explanation
+- Business impact
+- Recommended response action
 
 ## 👩‍💼 HR Dashboard
 - Payroll system
@@ -188,6 +299,28 @@ The Work Flint system follows a secure layered architecture:
 - Honeypot triggers
 - Suspicious activity detection
 - Risk score updates
+
+---
+
+# 📸 Project Screenshots
+
+## 🧠 System Architecture
+![Architecture](docs/system-architecture.png)
+
+---
+
+## 🛡 Admin Security Dashboard
+![Admin](docs/admin-dashboard.png)
+
+---
+
+## 👩‍💼 HR Dashboard
+![HR](docs/hr-dashboard.png)
+
+---
+
+## 🔐 Login System
+![Login](docs/login.png)
 
 ---
 
