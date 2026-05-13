@@ -310,12 +310,12 @@ AI-style analysis for each incident:
 ---
 
 ## 🛡 Admin Security Dashboard
-![Admin](docs/admin-dashboard.png)
+![Admin](docs/admin.png)
 
 ---
 
 ## 👩‍💼 HR Dashboard
-![HR](docs/hr-dashboard.png)
+![HR](docs/HR.png)
 
 ---
 
