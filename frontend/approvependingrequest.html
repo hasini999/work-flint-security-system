@@ -45,29 +45,130 @@ header {
 
 <body>
 
-<header>📋 Pending HR Requests</header>
+<header>
+  📋 Pending HR Requests
+</header>
 
 <div class="container">
 
-  <div class="request">
-    <p><strong>Leave Request:</strong> John Doe</p>
-    <button class="btn approve">Approve</button>
-    <button class="btn reject">Reject</button>
-  </div>
+  <table width="100%" cellpadding="10">
 
-  <div class="request">
-    <p><strong>Salary Revision:</strong> Sarah</p>
-    <button class="btn approve">Approve</button>
-    <button class="btn reject">Reject</button>
-  </div>
+    <thead>
 
-  <div class="request">
-    <p><strong>Transfer Request:</strong> Michael</p>
-    <button class="btn approve">Approve</button>
-    <button class="btn reject">Reject</button>
-  </div>
+      <tr style="background:#3b6dab; color:white;">
+
+        <th>Employee</th>
+        <th>Request</th>
+        <th>Status</th>
+        <th>Action</th>
+
+      </tr>
+
+    </thead>
+
+    <tbody id="requestTable"></tbody>
+
+  </table>
 
 </div>
+
+<script>
+
+async function loadRequests() {
+
+    const res = await fetch(
+        "/api/hr/requests",
+        {
+            headers: {
+                "x-session-id":
+                localStorage.getItem("sessionId")
+            }
+        }
+    );
+
+    const data = await res.json();
+
+    const table =
+        document.getElementById("requestTable");
+
+    table.innerHTML = "";
+
+    data.forEach(req => {
+
+        table.innerHTML += `
+        <tr style="background:white;">
+
+            <td>${req.employee_name}</td>
+
+            <td>${req.request_type}</td>
+
+            <td>${req.status}</td>
+
+            <td>
+
+                <button
+                    class="btn approve"
+                    onclick="updateRequest(
+                        ${req.id},
+                        'Approved'
+                    )">
+
+                    Approve
+
+                </button>
+
+                <button
+                    class="btn reject"
+                    onclick="updateRequest(
+                        ${req.id},
+                        'Rejected'
+                    )">
+
+                    Reject
+
+                </button>
+
+            </td>
+
+        </tr>
+        `;
+    });
+
+}
+
+async function updateRequest(id, status) {
+
+    await fetch(
+        "/api/hr/requests/update",
+        {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type":
+                "application/json",
+
+                "x-session-id":
+                localStorage.getItem("sessionId")
+            },
+
+            body: JSON.stringify({
+                id,
+                status
+            })
+
+        }
+    );
+
+    alert("Request Updated");
+
+    loadRequests();
+
+}
+
+loadRequests();
+
+</script>
 
 </body>
 </html>

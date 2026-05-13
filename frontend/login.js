@@ -31,28 +31,42 @@ document.getElementById("login-form").addEventListener("submit", async function 
 
         // ✅ STORE SESSION (IMPORTANT FOR RBAC)
         localStorage.setItem("sessionId", data.sessionId);
+        // ✅ SAVE USER
+        localStorage.setItem("loggedInUser", JSON.stringify({
+            name: data.name,
+            role: data.role,
+            email: email
+        }));
+
+       
         localStorage.setItem("role", data.role);
         localStorage.setItem("name", data.name);
 
         alert("Login successful!");
 
-        // ✅ ROLE BASED REDIRECT (CLEAN VERSION)
-        const role = data.role.toLowerCase();
+        // ✅ ROLE REDIRECT
+        if (data.role === "admin") {
 
-        if (role === "hr") {
+            window.location.href = "admin-security-dashboard.html";
+
+        } else if (data.role === "hr") {
+
             window.location.href = "hr-dashboard.html";
-        } else if (role === "admin") {
+
+        } else if (data.role === "it") {
+
             window.location.href = "it-dashboard.html";
-        } else if (role === "finance") {
-            window.location.href = "finance-dashboard.html";
-        } else if (role === "sales") {
-            window.location.href = "sales-dashboard.html";
+
         } else {
+
             window.location.href = "index.html";
         }
 
     } catch (error) {
+
         console.log(error);
         alert("Server error");
+
     }
+
 });

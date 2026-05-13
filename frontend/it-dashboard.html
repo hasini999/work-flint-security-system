@@ -223,5 +223,132 @@
 
   <script src="dashboard-common.js"></script>
   <script src="security.js"></script>
+
+<script>
+
+const socket = io("http://localhost:3000");
+
+socket.on("security-alert", (data) => {
+
+    console.log("🚨 Live Alert:", data);
+
+    loadDashboard();
+    loadRiskUsers();
+
+});
+
+async function loadDashboard() {
+
+    const res =
+        await fetch("/api/security-logs");
+
+    const data = await res.json();
+
+    const table =
+        document.getElementById("logTable");
+
+    table.innerHTML = "";
+
+    let critical = 0;
+    let honeypot = 0;
+
+    data.forEach(log => {
+
+        const event =
+            (log.event_type || "").toLowerCase();
+
+        if (
+            event.includes("root") ||
+            event.includes("disable") ||
+            event.includes("master")
+        ) {
+            critical++;
+        }
+
+        if (
+            event.includes("honeypot") ||
+            event.includes("access")
+        ) {
+            honeypots++;
+        }
+
+        table.innerHTML += `
+        <tr>
+
+            <td>
+                ${new Date(log.created_at)
+                    .toLocaleString()}
+            </td>
+
+            <td>${log.event_type}</td>
+
+            <td>${log.description}</td>
+
+            <td>${log.severity}</td>
+
+            <td>
+                ${
+                    event.includes("root")
+                    ? "CRITICAL"
+
+                    : event.includes("disable")
+                    ? "HIGH"
+
+                    : "MEDIUM"
+                }
+            </td>
+
+        </tr>
+        `;
+    });
+
+    document.getElementById("totalAlerts")
+        .innerText = data.length;
+
+    document.getElementById("critical")
+        .innerText = critical;
+
+    document.getElementById("honeypots")
+        .innerText = honeypot;
+
+}
+
+async function loadRiskUsers() {
+
+    const res =
+        await fetch("/api/users");
+
+    const users =
+        await res.json();
+
+    const list =
+        document.getElementById("riskUsers");
+
+    list.innerHTML = "";
+
+    users.forEach(user => {
+
+        list.innerHTML += `
+        <li>
+
+            ${user.name}
+            (${user.role})
+
+            - Risk:
+            ${user.risk_score || 0}
+
+        </li>
+        `;
+    });
+
+    document.getElementById("users")
+        .innerText = users.length;
+
+}
+
+loadDashboard();
+loadRiskUsers();
+
+</script>
 </body>
 </html>

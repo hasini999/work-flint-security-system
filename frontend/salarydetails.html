@@ -5,83 +5,100 @@
 <title>Salary Details</title>
 
 <style>
-body {
-  font-family: Arial;
-  margin: 0;
-  background: #f4f6f9;
+
+body{
+    font-family:Arial;
+    background:#f4f6f9;
+    margin:0;
 }
 
-header {
-  background: #3b6dab;
-  color: white;
-  padding: 15px;
-  text-align: center;
+header{
+    background:#3b6dab;
+    color:white;
+    text-align:center;
+    padding:15px;
 }
 
-.container {
-  padding: 20px;
+.container{
+    padding:20px;
 }
 
-table {
-  width: 100%;
-  background: white;
-  border-collapse: collapse;
+.card{
+    background:white;
+    padding:20px;
+    margin-bottom:15px;
+    border-radius:10px;
 }
 
-th, td {
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
-}
-
-th {
-  background: #3b6dab;
-  color: white;
-}
 </style>
 </head>
 
 <body>
 
-<header>💵 Salary Details</header>
+<header>
+💵 Employee Salary Details
+</header>
 
-<div class="container">
+<div class="container" id="salaryDetails"></div>
 
-<table>
-  <tr>
-    <th>Employee</th>
-    <th>Department</th>
-    <th>Basic Pay</th>
-    <th>Bonus</th>
-    <th>Total Salary</th>
-  </tr>
+<script>
 
-  <tr>
-    <td>John Doe</td>
-    <td>IT</td>
-    <td>40,000</td>
-    <td>5,000</td>
-    <td>45,000</td>
-  </tr>
+async function loadSalaryDetails(){
 
-  <tr>
-    <td>Sarah</td>
-    <td>HR</td>
-    <td>35,000</td>
-    <td>4,000</td>
-    <td>39,000</td>
-  </tr>
+    const res = await fetch(
+        "/api/hr/salaries",
+        {
+            headers:{
+                "x-session-id":
+                localStorage.getItem("sessionId")
+            }
+        }
+    );
 
-  <tr>
-    <td>Michael</td>
-    <td>Finance</td>
-    <td>50,000</td>
-    <td>6,000</td>
-    <td>56,000</td>
-  </tr>
+    const data = await res.json();
 
-</table>
+    const container =
+        document.getElementById("salaryDetails");
 
-</div>
+    container.innerHTML = "";
+
+    data.forEach(emp => {
+
+        container.innerHTML += `
+        <div class="card">
+
+            <h3>${emp.employee_name}</h3>
+
+            <p>
+            Department:
+            ${emp.department}
+            </p>
+
+            <p>
+            Basic Salary:
+            ₹${emp.basic_salary}
+            </p>
+
+            <p>
+            Bonus:
+            ₹${emp.bonus}
+            </p>
+
+            <p>
+            Total Salary:
+            ₹${emp.total}
+            </p>
+
+        </div>
+        `;
+
+    });
+
+}
+
+loadSalaryDetails();
+
+</script>
 
 </body>
 </html>

@@ -453,33 +453,58 @@ async function loadLogs() {
 loadLogs();
 
 
-function triggerHoneypot(type){
+function triggerHoneypot(eventType) {
 
-  console.warn("🚨 Honeypot Triggered:", type);
+    const employee =
+        localStorage.getItem("name");
 
-  fetch("/api/security-alert", {
+    const role =
+        localStorage.getItem("role");
 
-    method:"POST",
+    const sessionId =
+        localStorage.getItem("sessionId");
 
-    headers:{
-      "Content-Type":"application/json"
-    },
+    fetch("/api/security-alert", {
 
-    body: JSON.stringify({
+        method: "POST",
 
-      event:type,
-      page:"security-logs.html",
-      timestamp:new Date().toISOString()
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify({
+
+            event: eventType,
+
+            page: window.location.pathname,
+
+            timestamp: new Date().toISOString(),
+
+            employee: employee,
+
+            role: role,
+
+            sessionId: sessionId
+
+        })
 
     })
+    .then(res => res.json())
+    .then(data => {
 
-  }).catch(()=>{});
+        console.log("🚨 Threat logged:", data);
+
+        alert(
+          "🚨 Suspicious activity detected.\nRisk score updated."
+        );
+
+    })
+    .catch(err => console.log(err));
+}
 
   alert(
     "🚨 Unauthorized security operation detected.\n\nIncident has been logged."
   );
-
-}
 
 </script>
 

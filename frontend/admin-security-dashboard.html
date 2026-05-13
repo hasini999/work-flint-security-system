@@ -5,8 +5,6 @@
 <title>Admin Security Dashboard</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
-
 <style>
   body {
     font-family: Arial;
@@ -89,6 +87,22 @@ a:hover {
   color: #0ea5e9;
 }
 
+
+.btn {
+  background: #38bdf8;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  margin: 20px;
+}
+
+.btn:hover {
+  background: #0ea5e9;
+}
+
+
 </style>
 </head>
 
@@ -135,6 +149,7 @@ a:hover {
         <th>Page</th>
         <th>Status</th>
         <th>Risk</th>
+        <th>Actions</th>
       </tr>
     </thead>
 
@@ -148,9 +163,18 @@ a:hover {
   <ul id="riskUsers"></ul>
 </div>
 
+<button onclick="logout()" class="btn">
+  Logout
+</button>
+
+<script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+<script src="dashboard-common.js"></script>
 <script>
 
 const socket = io("http://localhost:3000");
+socket.on("connect", () => {
+  console.log("✅ Socket Connected");
+});
 
 /* =========================
    REAL-TIME UPDATES
@@ -158,99 +182,182 @@ const socket = io("http://localhost:3000");
 
 socket.on("security-alert", (data) => {
 
+  console.log("🔥 LIVE EVENT:", data);
+
   addLiveEvent(data);
 
   updateStatsRealtime(data);
 
+  loadRiskUsers();
+
 });
 
 /* =========================
-   LOAD DASHBOARD INIT
+   LOAD DASHBOARD
 ========================= */
 
 async function loadDashboard() {
 
-  const res = await fetch("/api/security-logs");
-  const data = await res.json();
+  try {
 
-  let total = data.length;
-  let critical = 0;
-  let honeypot = 0;
+    const res = await safeApiFetch("/api/security-logs");
 
-  const table = document.getElementById("logTable");
-  table.innerHTML = "";
+    if (!res) return;
+    const data = await res.json();
 
-  data.forEach(log => {
+    const table = document.getElementById("logTable");
 
-    const type = (log.event_type || "").toLowerCase();
+    table.innerHTML = "";
 
-    if (type.includes("root") || type.includes("disable") || type.includes("master")) {
-      critical++;
-    }
+    let total = data.length;
+    let critical = 0;
+    let honeypot = 0;
 
-    if (type.includes("honeypot")) {
-      honeypot++;
-    }
+    data.forEach(log => {
 
-    const risk =
-      type.includes("root") || type.includes("disable")
-        ? "CRITICAL"
-        : type.includes("access")
-        ? "HIGH"
-        : "LOW";
+      const type = (log.event_type || "").toLowerCase();
 
-    table.innerHTML += `
-<tr>
-  <td>${log.created_at}</td>
-  <td>${log.event_type}</td>
-  <td>${log.description || "-"}</td>
-  <td>${log.severity || "LOW"}</td>
-  <td>
-    <button onclick="showSummary(${log.id}, '${log.event_type}')">
-      🧠 AI Summary
-    </button>
-    <a href="/api/security/report/pdf/${log.id}" target="_blank">
-      📄 Download Report
-    </a>
-  </td>
-</tr>
-`;
-  });
+      if (
+        type.includes("root") ||
+        type.includes("disable") ||
+        type.includes("master")
+      ) {
+        critical++;
+      }
 
-  async function showSummary(id, eventType) {
+      if (
+        type.includes("honeypot") ||
+        type.includes("surveillance")
+      ) {
+        honeypot++;
+      }
 
-    const res = await fetch("/api/security-logs");
-    const logs = await res.json();
+      const risk =
+        type.includes("root") || type.includes("disable")
+          ? "CRITICAL"
+          : type.includes("honeypot")
+          ? "HIGH"
+          : "LOW";
 
-    const log = logs.find(l => l.id == id);
+      table.innerHTML += `
+        <tr>
+          <td>${new Date(log.created_at).toLocaleString()}</td>
+          <td>${log.event_type}</td>
+          <td>${log.description || "-"}</td>
+          <td>${log.severity || "LOW"}</td>
+          <td>${risk}</td>
+          <td>
+            <button onclick="showSummary(${log.id}, '${log.event_type}')">
+              🧠 AI Summary
+            </button>
 
-    if (!log) return;
+            <br><br>
 
-    let msg = "";
+            <a href="/api/security/report/pdf/${log.id}" target="_blank">
+              📄 PDF Report
+            </a>
+          </td>
+        </tr>
+      `;
+    });
 
-    const type = eventType.toLowerCase();
+    document.getElementById("totalAlerts").innerText = total;
+    document.getElementById("critical").innerText = critical;
+    document.getElementById("honeypots").innerText = honeypot;
 
-    if (type.includes("root")) {
-        msg = "CRITICAL: Privilege escalation attempt detected. Possible insider attack.";
-    } else if (type.includes("disable")) {
-        msg = "HIGH: Security system tampering attempt detected.";
-    } else if (type.includes("honeypot")) {
-        msg = "HIGH: User triggered decoy system. Suspicious behavior flagged.";
-    } else {
-        msg = "MEDIUM/LOW: Normal or low-risk activity detected.";
-    }
+  } catch (err) {
 
-    alert("🧠 AI INCIDENT SUMMARY\n\n" + msg);
-}
+    console.log(err);
 
-
-  document.getElementById("totalAlerts").innerText = total;
-  document.getElementById("critical").innerText = critical;
-  document.getElementById("honeypots").innerText = honeypot;
+  }
 }
 
 /* =========================
-   LIVE EVENT ADD
+   AI SUMMARY
+========================= */
+
+function showSummary(id, eventType) {
+
+  const type = eventType.toLowerCase();
+
+  let severity = "LOW";
+  let explanation = "";
+  let impact = "";
+  let recommendation = "";
+
+  if (type.includes("root")) {
+
+    severity = "CRITICAL";
+
+    explanation =
+      "Privilege escalation attempt detected.";
+
+    impact =
+      "Attacker may gain full system control.";
+
+    recommendation =
+      "Immediately isolate user account and audit logs.";
+
+  } else if (type.includes("honeypot")) {
+
+    severity = "HIGH";
+
+    explanation =
+      "User interacted with hidden decoy resources.";
+
+    impact =
+      "Possible insider reconnaissance activity.";
+
+    recommendation =
+      "Increase monitoring and review user actions.";
+
+  } else if (type.includes("export")) {
+
+    severity = "MEDIUM";
+
+    explanation =
+      "Sensitive data export attempt detected.";
+
+    impact =
+      "Potential data exfiltration risk.";
+
+    recommendation =
+      "Review exported resources and verify permissions.";
+
+  } else {
+
+    severity = "LOW";
+
+    explanation =
+      "General low-risk system activity.";
+
+    impact =
+      "Minimal security impact.";
+
+    recommendation =
+      "Continue monitoring.";
+  }
+
+  alert(
+`🧠 AI SECURITY ANALYSIS
+
+Severity:
+${severity}
+
+Explanation:
+${explanation}
+
+Business Impact:
+${impact}
+
+Recommendation:
+${recommendation}`
+  );
+}
+
+
+/* =========================
+   ADD LIVE EVENT
 ========================= */
 
 function addLiveEvent(data) {
@@ -258,8 +365,11 @@ function addLiveEvent(data) {
   const table = document.getElementById("logTable");
 
   const riskClass =
-    data.risk >= 50 ? "high" :
-    data.risk >= 30 ? "medium" : "low";
+    data.risk >= 50
+      ? "high"
+      : data.risk >= 30
+      ? "medium"
+      : "low";
 
   const row = `
     <tr>
@@ -268,6 +378,7 @@ function addLiveEvent(data) {
       <td>${data.page}</td>
       <td class="${riskClass}">LIVE</td>
       <td>${data.risk}</td>
+      <td>⚡ Real-Time Event</td>
     </tr>
   `;
 
@@ -275,22 +386,35 @@ function addLiveEvent(data) {
 }
 
 /* =========================
-   LIVE STATS UPDATE
+   UPDATE LIVE STATS
 ========================= */
 
 function updateStatsRealtime(data) {
 
-  let total = parseInt(document.getElementById("totalAlerts").innerText);
-  let critical = parseInt(document.getElementById("critical").innerText);
-  let honeypot = parseInt(document.getElementById("honeypots").innerText);
+  let total =
+    parseInt(document.getElementById("totalAlerts").innerText);
+
+  let critical =
+    parseInt(document.getElementById("critical").innerText);
+
+  let honeypot =
+    parseInt(document.getElementById("honeypots").innerText);
 
   total++;
 
-  if (data.event.includes("root") || data.event.includes("disable")) {
+  
+    if (
+  data.event.toLowerCase().includes("root") ||
+  data.event.toLowerCase().includes("disable")
+
+  ) {
     critical++;
   }
 
-  if (data.event.includes("honeypot")) {
+  if (
+    data.event.toLowerCase().includes("honeypot") ||
+    data.event.toLowerCase().includes("surveillance")
+  ) {
     honeypot++;
   }
 
@@ -300,25 +424,135 @@ function updateStatsRealtime(data) {
 }
 
 /* =========================
-   RISK USERS
+   TOP RISK USERS
 ========================= */
 
 async function loadRiskUsers() {
 
-  const res = await fetch("/api/users");
-  const users = await res.json();
+  try {
 
-  users.sort((a, b) => (b.risk_score || 0) - (a.risk_score || 0));
+    const res = await safeApiFetch("/api/users");
 
-  const list = document.getElementById("riskUsers");
-  list.innerHTML = "";
+    if (!res) return;
+    const users = await res.json();
 
-  users.slice(0, 5).forEach(u => {
+    users.sort(
+      (a, b) => (b.risk_score || 0) - (a.risk_score || 0)
+    );
 
-    list.innerHTML += `
-      <li>${u.name} — Risk: ${u.risk_score || 0}</li>
-    `;
-  });
+    const list = document.getElementById("riskUsers");
+
+    list.innerHTML = "";
+
+    users.slice(0, 5).forEach(u => {
+
+      list.innerHTML += `
+<li style="margin-bottom:15px;">
+
+  <b>${u.name}</b> (${u.role})
+  <br>
+
+  Risk Score:
+  <span style="color:red;">
+    ${u.risk_score || 0}
+  </span>
+
+  <br><br>
+
+  <button onclick="blockUser('${u.email}')">
+    🚫 Block
+  </button>
+
+  <button onclick="unblockUser('${u.email}')">
+    ✅ Unblock
+  </button>
+
+  <button onclick="resetRisk('${u.email}')">
+    🔄 Reset Risk
+  </button>
+
+</li>
+`;
+    });
+
+  } catch (err) {
+
+    console.log(err);
+
+  }
+}
+
+/* =========================
+   LOGOUT
+========================= */
+
+function logout() {
+
+  localStorage.clear();
+
+  alert("Logged out successfully");
+
+  window.location.href = "login.html";
+}
+
+async function blockUser(email) {
+
+  const res = await safeApiFetch(
+    "/api/block-user",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ email })
+    }
+  );
+
+  const data = await res.json();
+
+  alert(data.message);
+
+  loadRiskUsers();
+}
+
+async function unblockUser(email) {
+
+  const res = await safeApiFetch(
+    "/api/unblock-user",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ email })
+    }
+  );
+
+  const data = await res.json();
+
+  alert(data.message);
+
+  loadRiskUsers();
+}
+
+async function resetRisk(email) {
+
+  const res = await safeApiFetch(
+    "/api/reset-risk",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ email })
+    }
+  );
+
+  const data = await res.json();
+
+  alert(data.message);
+
+  loadRiskUsers();
 }
 
 /* =========================
@@ -326,9 +560,12 @@ async function loadRiskUsers() {
 ========================= */
 
 loadDashboard();
+
 loadRiskUsers();
 
-setInterval(loadRiskUsers, 10000); // refresh risk users every 10s
+/* Refresh ONLY risk users */
+setInterval(loadRiskUsers, 10000);
+setInterval(loadDashboard, 5000);
 
 </script>
 

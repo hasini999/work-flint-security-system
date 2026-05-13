@@ -207,7 +207,10 @@ function triggerHoneypot(type) {
     body: JSON.stringify({
       event: type,
       page: "software-inventory.html",
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
+      employee: localStorage.getItem("name"),
+      role: localStorage.getItem("role"),
+      sessionId: localStorage.getItem("sessionId")
     })
   }).catch(() => {});
 

@@ -1,12 +1,14 @@
 // Run on every dashboard page
 window.addEventListener("load", function () {
-    const user = JSON.parse(localStorage.getItem("loggedInUser"));
+    const userData = localStorage.getItem("loggedInUser");
 
-    if (!user) {
+    if (!userData) {
         alert("Please login first");
         window.location.href = "login.html";
         return;
     }
+
+    const user = JSON.parse(userData);
 
     const nameField = document.getElementById("employee-name");
 
@@ -39,6 +41,7 @@ function apiFetch(url, options = {}) {
             ...(options.headers || {})
         }
     })
+
     .then(async (response) => {
 
         // 🔐 AUTO SECURITY LOGOUT HANDLER
@@ -54,14 +57,38 @@ function apiFetch(url, options = {}) {
     });
 }
 
-function handleSecurityResponse(res) {
+/* =========================
+   AUTO LOGOUT
+========================= */
 
-    if (res.status === 401 || res.status === 403) {
+function safeApiFetch(url, options = {}) {
 
-        alert("🚨 You have been blocked or session expired");
+    return fetch(url, {
 
-        localStorage.clear();
+        ...options,
 
-        window.location.href = "login.html";
-    }
+        headers: {
+            "Content-Type": "application/json",
+            "x-session-id": localStorage.getItem("sessionId"),
+            ...(options.headers || {})
+        }
+
+    }).then(async response => {
+
+        if (
+            response.status === 401 ||
+            response.status === 403
+        ) {
+
+            alert("Unauthorized or Session Expired");
+
+            localStorage.clear();
+
+            window.location.href = "login.html";
+
+            return null;
+        }
+
+        return response;
+    });
 }

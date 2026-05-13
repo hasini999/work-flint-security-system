@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require("path");
 const mysql = require("mysql2");
-const bodyParser = require("body-parser");
+// const bodyParser = require("body-parser");
 const cors = require("cors");
 const securityRoutes = require("./backend/routes/security");
 const authRoutes = require("./backend/routes/auth");
@@ -16,7 +16,9 @@ const { Server } = require("socket.io");
 
 
 app.use(cors());
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use("/api", securityRoutes);
 app.use("/api", authRoutes);
 
@@ -164,7 +166,7 @@ if (user.is_blocked) {
 }
 
 // 🔥 Risk-based auto block
-if (user.risk_score >= 80) {
+if ((user.risk_score || 0) >= 80) {
 
     db.query(
         "UPDATE users SET is_blocked = TRUE WHERE email = ?",
@@ -303,7 +305,11 @@ app.get("/api/hr/analytics", authMiddleware, roleCheck(["hr","admin"]), (req, re
 
 });
 
-app.get("/api/hr/letters/pdf/:id", (req, res) => {
+app.get(
+    "/api/hr/letters/pdf/:id",
+    authMiddleware,
+    roleCheck(["admin", "hr"]),
+    (req, res) => {
 
     db.query(
         "SELECT * FROM letters WHERE id=?",
@@ -390,71 +396,132 @@ app.post("/api/security-alert", (req, res) => {
     const { event, page, timestamp, employee, role, sessionId } = req.body;
 
     let points = 0;
+    let severity = "LOW";
 
-    // 🔥 Risk engine rules
-    if (event.includes("honeypot")) points = 20;
-    if (event.includes("root")) points = 50;
-    if (event.includes("disable")) points = 40;
-    if (event.includes("master")) points = 60;
-    if (event.includes("export")) points = 30;
-    if (event.includes("surveillance")) points = 45;
+    const e = event.toLowerCase();
+    if (e.includes("honeypot")) {
+        points = 20;
+        severity = "MEDIUM";
+    }
+
+    if (e.includes("root")) {
+        points = 50;
+        severity = "CRITICAL";
+    }
+
+    if (e.includes("disable")) {
+        points = 40;
+        severity = "HIGH";
+    }
+
+    if (e.includes("master")) {
+        points = 60;
+        severity = "CRITICAL";
+    }
+
+    if (e.includes("surveillance")) {
+        points = 45;
+        severity = "HIGH";
+    }
+
+    if (e.includes("export")) {
+        points = 30;
+        severity = "MEDIUM";
+    }
 
     // 1. log security event
-    db.query(
-        `INSERT INTO security_logs (event_type, description, severity)
-         VALUES (?, ?, ?)`,
-        [event, `Triggered on ${page}`, "HIGH"]
-    );
+     const logSql = `
+        INSERT INTO security_logs
+        (event_type, description, severity)
+        VALUES (?, ?, ?)
+    `;
+
 
     // 2. update risk score in USERS table
     db.query(
-        `UPDATE users 
-         SET risk_score = COALESCE(risk_score,0) + ?
-         WHERE name = ?`,
-        [points, employee],
+        logSql,
+        [
+            event,
+            `${employee} triggered ${event} on ${page}`,
+            severity
+        ],
         (err) => {
-            if (err) console.log("Risk update error:", err);
-        }
-    );
+            if (err) {
+                console.log("Risk update error:", err);
+                return res.status(500).send("DB Error");
+            }
+            // UPDATE USER RISK SCORE
 
-    console.log("🚨 Risk points added:", points);
-
-    res.json({ message: "Logged + Risk Updated" });
-
-    // 🚨 AUTO BLOCK TRIGGER
-db.query(
-    "SELECT risk_score FROM users WHERE name=?",
-    [employee],
-    (err, result) => {
-
-        if (result?.[0]?.risk_score >= 80) {
+            const riskSql = `
+                UPDATE users
+                SET risk_score = COALESCE(risk_score,0) + ?
+                WHERE name = ?
+            `;
 
             db.query(
-                "UPDATE users SET is_blocked=TRUE WHERE name=?",
-                [employee]
+                riskSql,
+                [points, employee],
+                (err2) => {
+
+                    if (err2) {
+                        console.log(err2);
+                    }
+
+                    // 🚫 AUTO BLOCK SYSTEM
+                    db.query(
+                        "SELECT risk_score FROM users WHERE name=?",
+                        [employee],
+                        (err3, result) => {
+
+                            if (
+                                result &&
+                                result[0] &&
+                                result[0].risk_score >= 80
+                            ) {
+                               db.query(
+                                    "UPDATE users SET is_blocked=TRUE WHERE name=?",
+                                    [employee]
+                                );
+
+                                console.log("🚫 USER AUTO BLOCKED:", employee);
+                            }
+                        }
+                    );
+                    
+
+                    io.emit("security-alert", {
+                        employee,
+                        event,
+                        points,
+                        severity,
+                        page,
+                        risk:points,
+                        time: new Date()
+                    });
+
+                    console.log(
+                        `🚨 ${employee} risk increased by ${points}`
+                    );
+
+                    res.json({
+                        success: true,
+                        riskAdded: points
+                    });
+
+                }
             );
-
-            console.log("🚫 USER AUTO-BLOCKED:", employee);
         }
-    }
-);
-
-    io.emit("security-alert", {
-    event,
-    employee,
-    risk: points,
-    page,
-    timestamp: new Date().toISOString()
+    );
 });
-
-});
-
 
 /* =========================
    GET SECURITY LOGS
 ========================= */
 
-app.get("/api/security-logs", (req, res) => {
+app.get(
+    "/api/security-logs",
+    authMiddleware,
+    roleCheck(["admin"]), (req, res) => {
 
     const sql = `
         SELECT *
@@ -475,7 +542,10 @@ app.get("/api/security-logs", (req, res) => {
 
 });
 
-app.get("/api/users", (req, res) => {
+app.get(
+    "/api/users",
+    authMiddleware,
+    roleCheck(["admin"]), (req, res) => {
 
     db.query(
         "SELECT name, email, role, risk_score FROM users ORDER BY risk_score DESC",
@@ -490,7 +560,10 @@ app.get("/api/users", (req, res) => {
 });
 
 
-app.get("/api/blocked-users", (req, res) => {
+app.get(
+    "/api/blocked-users",
+    authMiddleware,
+    roleCheck(["admin"]), (req, res) => {
 
     db.query(
         "SELECT name, email, risk_score FROM users WHERE is_blocked = TRUE",
@@ -499,6 +572,89 @@ app.get("/api/blocked-users", (req, res) => {
             if (err) return res.status(500).send("DB Error");
 
             res.json(result);
+        }
+    );
+});
+
+
+
+app.post(
+    "/api/block-user",
+    authMiddleware,
+    roleCheck(["admin"]),
+    (req, res) => {
+
+    const { email } = req.body;
+
+    db.query(
+        "UPDATE users SET is_blocked = TRUE WHERE email=?",
+        [email],
+        (err) => {
+
+            if (err) {
+                return res.status(500).json({
+                    message: "DB Error"
+                });
+            }
+
+            res.json({
+                success: true,
+                message: "User blocked successfully"
+            });
+        }
+    );
+});
+
+app.post(
+    "/api/unblock-user",
+    authMiddleware,
+    roleCheck(["admin"]),
+    (req, res) => {
+
+    const { email } = req.body;
+
+    db.query(
+        "UPDATE users SET is_blocked = FALSE WHERE email=?",
+        [email],
+        (err) => {
+
+            if (err) {
+                return res.status(500).json({
+                    message: "DB Error"
+                });
+            }
+
+            res.json({
+                success: true,
+                message: "User unblocked successfully"
+            });
+        }
+    );
+});
+
+app.post(
+    "/api/reset-risk",
+    authMiddleware,
+    roleCheck(["admin"]),
+    (req, res) => {
+
+    const { email } = req.body;
+
+    db.query(
+        "UPDATE users SET risk_score = 0 WHERE email=?",
+        [email],
+        (err) => {
+
+            if (err) {
+                return res.status(500).json({
+                    message: "DB Error"
+                });
+            }
+
+            res.json({
+                success: true,
+                message: "Risk score reset"
+            });
         }
     );
 });
@@ -544,7 +700,7 @@ app.get("/api/security/report/pdf/:id", (req, res) => {
             doc.moveDown();
 
             // AI SECTION
-            doc.fontSize(16).text("🧠 AI Analysis", {
+            doc.fontSize(16).text("AI Security Analysis", {
                 underline: true
             });
 
@@ -565,18 +721,6 @@ app.get("/api/security/report/pdf/:id", (req, res) => {
     );
 });
 
-function updateRisk(email, points) {
-
-    const sql = `
-        UPDATE users
-        SET risk_score = COALESCE(risk_score, 0) + ?
-        WHERE email = ?
-    `;
-
-    db.query(sql, [points, email], (err) => {
-        if (err) console.log("Risk update error:", err);
-    });
-}
 
 function authMiddleware(req, res, next) {
 
@@ -621,6 +765,8 @@ function blockCheck(req, res, next) {
         }
     );
 }
+
+app.use(blockCheck);
 
 function roleCheck(roles) {
     return (req, res, next) => {
@@ -703,7 +849,7 @@ app.use(
     hrRoutes
 );
 
-app.use(blockCheck);
+
 /* =========================
    START SERVER
 ========================= */
