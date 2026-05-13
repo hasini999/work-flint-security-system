@@ -324,6 +324,22 @@ AI-style analysis for each incident:
 
 ---
 
+## 🔐 Register System
+![Register](docs/register.png)
+
+---
+
+## 🔐 Login System
+![IT](docs/IT.png)
+
+---
+
+## 🔐 Dashboard System
+![Dashboard](docs/index.png)
+
+---
+
+
 # 📦 Installation
 
 ```bash
